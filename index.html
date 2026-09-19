@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedPath — MBBS/MD College Data, India</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1B2A4A; --ink-soft: #4A5670; --bg: #EEF0EA; --surface: #FFFFFF;
+    --accent: #C97A1A; --accent-deep: #9C5D12; --brick: #8C3B2E; --border: #D3D2C2;
+    --govt-tag: #2F6F5E; --govt-tag-bg: #E1EEE8; --priv-tag: #7A4A9C; --priv-tag-bg: #ECE3F2;
+    --ini-tag: #1B5E8C; --ini-tag-bg: #DCEAF3;
+    --ok: #2F6F5E; --ok-bg: #E1EEE8; --mid: #8A7A4A; --mid-bg: #F1ECDD;
+    --bad: #8C3B2E; --bad-bg: #F5E4E1; --focus: #1B2A4A;
+  }
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --ink: #EDEBE1; --ink-soft: #B9BCC7; --bg: #191B17; --surface: #232620;
+      --accent: #E8A24B; --accent-deep: #F0B96E; --brick: #D98A78; --border: #3A3D34;
+      --govt-tag: #7FCBB2; --govt-tag-bg: #223530; --priv-tag: #C9A7E8; --priv-tag-bg: #2E2836;
+      --ini-tag: #8EC3E8; --ini-tag-bg: #1E2E3A;
+      --ok: #7FCBB2; --ok-bg: #223530; --mid: #E8C77A; --mid-bg: #34301F;
+      --bad: #D98A78; --bad-bg: #3A2622; --focus: #E8A24B;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #EDEBE1; --ink-soft: #B9BCC7; --bg: #191B17; --surface: #232620;
+    --accent: #E8A24B; --accent-deep: #F0B96E; --brick: #D98A78; --border: #3A3D34;
+    --govt-tag: #7FCBB2; --govt-tag-bg: #223530; --priv-tag: #C9A7E8; --priv-tag-bg: #2E2836;
+    --ini-tag: #8EC3E8; --ini-tag-bg: #1E2E3A;
+    --ok: #7FCBB2; --ok-bg: #223530; --mid: #E8C77A; --mid-bg: #34301F;
+    --bad: #D98A78; --bad-bg: #3A2622; --focus: #E8A24B;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { font-family: 'Lora', serif; margin: 0; color: var(--ink); }
+  a { color: var(--accent-deep); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  button, input, select { font-family: inherit; font-size: inherit; color: inherit; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+  header.top { border-bottom: 1px solid var(--border); padding: 14px 0; position: sticky; top: 0; background: var(--bg); z-index: 30; }
+  .top-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .brand-mark { font-family: 'Lora', serif; font-weight: 700; font-size: 1.2rem; cursor: pointer; }
+  .brand-tag { font-size: 0.78rem; color: var(--ink-soft); margin-left: 8px; }
+  .nav-btns { display: flex; gap: 8px; }
+  .nav-btn { background: none; border: 1px solid var(--border); border-radius: 999px; padding: 6px 13px; cursor: pointer; font-size: 0.78rem; color: var(--ink-soft); }
+  .nav-btn:hover, .nav-btn.active { border-color: var(--accent); color: var(--accent); }
+
+  .view { display: none; }
+  .view.active { display: block; }
+
+  .hero { padding: 26px 0 16px; }
+  .hero h1 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 600; max-width: 34ch; line-height: 1.2; }
+  .hero .sub { margin-top: 8px; max-width: 62ch; color: var(--ink-soft); font-size: 0.92rem; }
+
+  .controls { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 16px; margin-top: 14px; }
+  .controls-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 10px; }
+  @media (max-width: 800px) { .controls-grid { grid-template-columns: 1fr 1fr; } }
+  .field label { display: block; font-size: 0.72rem; color: var(--ink-soft); margin-bottom: 4px; }
+  .field input, .field select { width: 100%; padding: 8px 9px; border: 1px solid var(--border); border-radius: 3px; background: var(--bg); color: var(--ink); }
+
+  .notice { margin: 16px 0; border-left: 3px solid var(--brick); background: var(--surface); padding: 11px 15px; font-size: 0.8rem; color: var(--ink-soft); border-radius: 0 3px 3px 0; }
+  .notice strong { color: var(--ink); }
+
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 16px 0 10px; flex-wrap: wrap; }
+  .section-head h2 { font-size: 1.1rem; font-weight: 600; }
+  .count-tag { font-size: 0.8rem; color: var(--ink-soft); }
+
+  .college-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+    padding: 12px 15px; margin-bottom: 7px; display: grid;
+    grid-template-columns: 22px 1.8fr 1fr 1fr 1fr auto; gap: 10px; align-items: center; cursor: pointer;
+  }
+  .college-card:hover { border-color: var(--accent); }
+  @media (max-width: 900px) {
+    .college-card { grid-template-columns: 20px 1fr; grid-template-areas: "check name" ". tags" ". stats" ". link"; row-gap: 6px; }
+    .college-card .cell-tags { grid-area: tags; }
+    .college-card .cell-facts { grid-area: stats; display: flex !important; gap: 14px; flex-wrap: wrap; }
+    .college-card .cell-link { grid-area: link; }
+  }
+  .college-card input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--accent); }
+  .college-name { font-weight: 600; font-size: 0.9rem; }
+  .college-loc { font-size: 0.76rem; color: var(--ink-soft); }
+  .tag { display: inline-block; font-size: 0.66rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; }
+  .tag-govt { background: var(--govt-tag-bg); color: var(--govt-tag); }
+  .tag-priv { background: var(--priv-tag-bg); color: var(--priv-tag); }
+  .tag-ini { background: var(--ini-tag-bg); color: var(--ini-tag); }
+  .fact-label { font-size: 0.66rem; color: var(--ink-soft); }
+  .fact-value { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; font-weight: 600; }
+  .fact-value.na { color: var(--ink-soft); font-family: inherit; font-weight: 400; font-size: 0.78rem; }
+  .arrow { color: var(--ink-soft); font-size: 1rem; }
+
+  .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.02em; }
+  .badge-ok { background: var(--ok-bg); color: var(--ok); }
+  .badge-mid { background: var(--mid-bg); color: var(--mid); }
+  .badge-bad { background: var(--bad-bg); color: var(--bad); }
+  .badge-none { background: var(--border); color: var(--ink-soft); }
+
+  .pagination { display: flex; justify-content: center; gap: 8px; margin: 18px 0 30px; align-items: center; }
+  .pagination button { border: 1px solid var(--border); background: var(--surface); border-radius: 3px; padding: 6px 11px; cursor: pointer; font-size: 0.82rem; }
+  .pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .page-info { font-size: 0.8rem; color: var(--ink-soft); }
+
+  .compare-tray { position: sticky; bottom: 0; background: var(--ink); color: var(--bg); padding: 11px 0; display: none; z-index: 25; border-top: 1px solid var(--border); }
+  .compare-tray.active { display: block; }
+  .compare-tray .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .compare-tray .names { font-size: 0.82rem; opacity: 0.9; }
+  .compare-tray button.view2 { background: var(--accent); color: #1B2A4A; border: none; border-radius: 3px; padding: 7px 14px; font-weight: 600; cursor: pointer; }
+  .compare-tray button.clear { background: none; border: 1px solid rgba(255,255,255,0.4); color: inherit; border-radius: 3px; padding: 7px 12px; cursor: pointer; font-size: 0.8rem; }
+
+  .compare-wrap { overflow-x: auto; margin-bottom: 30px; }
+  table.compare { width: 100%; border-collapse: collapse; min-width: 560px; background: var(--surface); border: 1px solid var(--border); }
+  table.compare th, table.compare td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); font-size: 0.84rem; vertical-align: top; }
+  table.compare th { color: var(--ink-soft); font-weight: 600; font-size: 0.74rem; white-space: nowrap; }
+  table.compare td.metric-label { color: var(--ink-soft); font-size: 0.74rem; white-space: nowrap; }
+
+  /* Profile view */
+  .back-btn { background: none; border: none; color: var(--accent-deep); cursor: pointer; font-size: 0.86rem; padding: 0; margin-bottom: 14px; }
+  .profile-head { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 20px; }
+  .profile-head h1 { font-size: 1.4rem; }
+  .profile-loc { color: var(--ink-soft); font-size: 0.88rem; margin-top: 4px; }
+  .profile-tags { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .data-section { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 18px; margin-top: 14px; }
+  .data-section h3 { font-size: 0.98rem; margin-bottom: 10px; }
+  .fact-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 8px 0; border-top: 1px solid var(--border); font-size: 0.86rem; }
+  .fact-row:first-of-type { border-top: none; }
+  .fact-row .flabel { color: var(--ink-soft); }
+  .fact-row .fval { font-weight: 600; text-align: right; }
+  .fact-row .fsource { font-size: 0.74rem; color: var(--ink-soft); margin-top: 2px; }
+  .empty-state { font-size: 0.84rem; color: var(--ink-soft); padding: 6px 0; }
+  .empty-state a { font-weight: 600; }
+
+  .cutoff-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+  .cutoff-table th, .cutoff-table td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border); }
+  .cutoff-table th { font-size: 0.72rem; color: var(--ink-soft); font-weight: 600; }
+
+  .explainer { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 18px; margin-top: 20px; }
+  .steps-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  @media (max-width: 960px) { .steps-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .steps-grid { grid-template-columns: 1fr; } }
+  .step { border-top: 2px solid var(--accent); padding-top: 8px; }
+  .step-num { font-family: 'Lora', serif; font-weight: 700; color: var(--accent); font-size: 1.05rem; margin-bottom: 4px; }
+  .step-title { font-weight: 600; font-size: 0.84rem; margin-bottom: 4px; }
+  .step-text { font-size: 0.76rem; color: var(--ink-soft); line-height: 1.5; }
+
+  .contribute-card { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 22px; margin-top: 16px; text-align: center; }
+  .contribute-card a.form-link { display: inline-block; margin-top: 12px; background: var(--ink); color: var(--bg); padding: 11px 20px; border-radius: 3px; text-decoration: none; font-weight: 600; font-size: 0.88rem; }
+
+  .theme-toggle { background: none; border: 1px solid var(--border); border-radius: 999px; padding: 6px 13px; cursor: pointer; font-size: 0.78rem; color: var(--ink-soft); }
+  footer { border-top: 1px solid var(--border); padding: 20px 0 32px; color: var(--ink-soft); font-size: 0.78rem; }
+  .no-results { padding: 26px 0; color: var(--ink-soft); text-align: center; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-row">
+    <div>
+      <span class="brand-mark" id="brandHome">MedPath</span>
+      <span class="brand-tag">building toward 2027 — data collection in progress</span>
+    </div>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <div class="nav-btns">
+        <button class="nav-btn active" data-view="search">Search</button>
+        <button class="nav-btn" data-view="guide">Counselling Guide</button>
+        <button class="nav-btn" data-view="contribute">Contribute Data</button>
+      </div>
+      <button class="theme-toggle" id="themeToggle" type="button">Dark</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ===== SEARCH VIEW ===== -->
+<section class="view active" id="view-search">
+  <div class="hero">
+    <h1>Search, compare, and check every MBBS/MD college in India.</h1>
+    <p class="sub">845 colleges tracked. Seats and government/private status are fully verified against the official NMC seat matrix. Fee, cutoff history, accreditation, and facilities are being verified college-by-college — click any college to see exactly what's confirmed and what isn't yet.</p>
+  </div>
+
+  <div class="controls">
+    <div class="controls-grid">
+      <div class="field"><label for="searchInput">Search by college name</label><input type="text" id="searchInput" placeholder="e.g. Kasturba, Government Medical College..."></div>
+      <div class="field"><label for="stateSelect">State / UT</label><select id="stateSelect"><option value="all">All states</option></select></div>
+      <div class="field"><label for="typeSelect">Type</label>
+        <select id="typeSelect"><option value="all">Government + Private</option><option value="Government">Government only</option><option value="Private">Private only</option></select>
+      </div>
+      <div class="field"><label for="sortSelect">Sort by</label>
+        <select id="sortSelect"><option value="name">Name (A-Z)</option><option value="seats-desc">Seats (high to low)</option><option value="data-first">Most documented first</option></select>
+      </div>
+    </div>
+  </div>
+
+  <div class="notice"><strong>Where this stands:</strong> this app is being built ahead of full data collection — seats/type data is complete and official; cutoff, fee, accreditation, and facility data currently covers a small verified set (visible via each college's data badges) and is being expanded before public launch for 2027 admissions. Nothing here is guessed — gaps say so.</div>
+
+  <div class="section-head"><h2>Colleges</h2><span class="count-tag" id="resultCount"></span></div>
+  <div id="collegeList"></div>
+  <div class="no-results" id="noResults" style="display:none;">No colleges match your search.</div>
+  <div class="pagination" id="pagination"></div>
+
+  <div id="compareSection" style="display:none;">
+    <div class="section-head"><h2>Comparing</h2></div>
+    <div class="compare-wrap"><table class="compare" id="compareTable"></table></div>
+  </div>
+</section>
+
+<!-- ===== PROFILE VIEW ===== -->
+<section class="view" id="view-profile">
+  <button class="back-btn" id="backToSearch">&larr; Back to search</button>
+  <div id="profileContent"></div>
+</section>
+
+<!-- ===== GUIDE VIEW ===== -->
+<section class="view" id="view-guide">
+  <div class="hero"><h1>How NEET counselling actually works</h1></div>
+  <div class="explainer">
+    <div class="steps-grid">
+      <div class="step"><div class="step-num">1</div><div class="step-title">Two separate tracks</div><div class="step-text"><strong>All-India Quota (AIQ)</strong> — 15% of government seats, plus deemed/central universities and AIIMS/JIPMER — via <strong>MCC</strong>. <strong>State quota</strong> — remaining 85% of government seats, plus most private seats — via each state's own authority.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-title">Registration &amp; documents</div><div class="step-text">Register with NEET roll number, category certificate, domicile proof (state quota), ID proof. Pay the registration/security fee — refundable for AIQ if unallotted.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-title">Choice filling</div><div class="step-text">List colleges in your real order of preference. Edit until the deadline. This is where verified seat/fee/cutoff data actually changes decisions.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-title">Allotment rounds</div><div class="step-text">Round 1, Round 2, usually a Mop-Up and Stray Vacancy round. Each round: accept &amp; report, or hold and try again if the round allows it.</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-title">Reporting &amp; admission</div><div class="step-text">Report in person within the window with original documents. Missing the deadline typically forfeits the seat.</div></div>
+    </div>
+    <div class="notice" style="margin-top:14px;"><strong>Where to register:</strong> <a href="https://mcc.nic.in" target="_blank" rel="noopener">mcc.nic.in</a> for AIQ/deemed/central universities/AIIMS/JIPMER. For state quota, search "[your state] NEET UG counselling" for that state's official portal.</div>
+  </div>
+</section>
+
+<!-- ===== CONTRIBUTE VIEW ===== -->
+<section class="view" id="view-contribute">
+  <div class="hero"><h1>Help verify college data</h1><p class="sub">Most of what makes this app genuinely useful — hostel conditions, faculty accessibility, real patient exposure, honest fee figures — doesn't exist in any public database. It has to come from people who've actually been there.</p></div>
+  <div class="contribute-card">
+    <h3>Are you a current student, alumnus, or parent?</h3>
+    <p style="color:var(--ink-soft); font-size:0.88rem; margin-top:8px;">Submit verified data for your college — fee paid, hostel conditions, faculty experience, or corrections to existing data. Every submission is reviewed before it's marked verified.</p>
+    <a class="form-link" href="#" id="contributeFormLink" target="_blank" rel="noopener">Open the data submission form</a>
+    <p style="color:var(--ink-soft); font-size:0.76rem; margin-top:14px;">(Form link to be added once published — currently collecting via Google Form during the data-building phase.)</p>
+  </div>
+</section>
+
+</div>
+
+<div class="compare-tray" id="compareTray">
+  <div class="wrap">
+    <span class="names" id="trayNames"></span>
+    <div style="display:flex; gap:10px;">
+      <button class="clear" id="trayClear" type="button">Clear</button>
+      <button class="view2" id="trayView" type="button">Compare selected</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    MedPath is free and independent — no college pays for placement or a better position here. This is a data and comparison tool, not an application portal: real MBBS/MD applications go through NEET counselling (mcc.nic.in for AIQ, or your state's counselling authority for state quota).
+  </div>
+</footer>
+
+<script>
+let DB = { colleges: [], cutoffs: [], fees: [], accreditation: [], facilities: [] };
+const state = { selected: new Set(), page: 1 };
+const PAGE_SIZE = 25;
+
+function getCollege(id) { return DB.colleges.find(c => c.id === id); }
+function cutoffsFor(id) { return DB.cutoffs.filter(x => x.college_id === id); }
+function feesFor(id) { return DB.fees.filter(x => x.college_id === id); }
+function accredFor(id) { return DB.accreditation.filter(x => x.college_id === id); }
+function facilitiesFor(id) { return DB.facilities.filter(x => x.college_id === id); }
+
+function dataScore(c) {
+  return cutoffsFor(c.id).length + feesFor(c.id).length + accredFor(c.id).length + facilitiesFor(c.id).length;
+}
+
+function statusBadge(status) {
+  if (!status) return '<span class="badge badge-none">Not available</span>';
+  const s = status.toLowerCase();
+  if (s === 'verified') return '<span class="badge badge-ok">Verified</span>';
+  if (s.includes('partial')) return '<span class="badge badge-mid">Partially verified</span>';
+  if (s === 'flagged' || s.includes('conflict')) return '<span class="badge badge-bad">Flagged</span>';
+  return '<span class="badge badge-none">' + status + '</span>';
+}
+
+function tagClass(t) { if (t.startsWith('Government')) return 'tag-govt'; if (t === 'Private') return 'tag-priv'; return 'tag-ini'; }
+function tagLabel(t) { if (t === 'Government (INI)') return 'Govt · INI'; if (t.includes('Research')) return 'Govt · INI/Research'; return t; }
+
+// ---------------- View switching ----------------
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === name));
+  window.scrollTo({top:0});
+}
+document.querySelectorAll('.nav-btn').forEach(b => b.addEventListener('click', () => showView(b.dataset.view)));
+document.getElementById('brandHome').addEventListener('click', () => showView('search'));
+
+// ---------------- Search / list ----------------
+function populateStates() {
+  const sel = document.getElementById('stateSelect');
+  const states = [...new Set(DB.colleges.map(c => c.s))].filter(s => s && s !== '—').sort();
+  states.forEach(s => { const opt = document.createElement('option'); opt.value = s; opt.textContent = s; sel.appendChild(opt); });
+}
+
+function getFiltered() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  const st = document.getElementById('stateSelect').value;
+  const ty = document.getElementById('typeSelect').value;
+  const sortBy = document.getElementById('sortSelect').value;
+
+  let list = DB.colleges.filter(c => {
+    if (q && !c.n.toLowerCase().includes(q)) return false;
+    if (st !== 'all' && c.s !== st) return false;
+    if (ty !== 'all') {
+      if (ty === 'Government' && !c.t.startsWith('Government')) return false;
+      if (ty === 'Private' && c.t !== 'Private') return false;
+    }
+    return true;
+  });
+
+  if (sortBy === 'name') list = list.sort((a,b) => a.n.localeCompare(b.n));
+  else if (sortBy === 'seats-desc') list = list.sort((a,b) => (b.seats||0) - (a.seats||0));
+  else if (sortBy === 'data-first') list = list.sort((a,b) => dataScore(b) - dataScore(a));
+
+  return list;
+}
+
+function renderList() {
+  const list = getFiltered();
+  const container = document.getElementById('collegeList');
+  const noResults = document.getElementById('noResults');
+  const countTag = document.getElementById('resultCount');
+  const pagination = document.getElementById('pagination');
+
+  if (list.length === 0) {
+    container.innerHTML = ''; noResults.style.display = 'block'; countTag.textContent = ''; pagination.innerHTML = ''; return;
+  }
+  noResults.style.display = 'none';
+
+  const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+  if (state.page > totalPages) state.page = totalPages;
+  const startIdx = (state.page - 1) * PAGE_SIZE;
+  const pageItems = list.slice(startIdx, startIdx + PAGE_SIZE);
+  countTag.textContent = list.length.toLocaleString('en-IN') + ' colleges match';
+
+  container.innerHTML = pageItems.map(c => {
+    const isChecked = state.selected.has(c.id);
+    const score = dataScore(c);
+    return `
+      <div class="college-card" data-id="${c.id}">
+        <input type="checkbox" data-id="${c.id}" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation()" aria-label="Select ${c.n} to compare">
+        <div><div class="college-name">${c.n}</div><div class="college-loc">${c.s}</div></div>
+        <div class="cell-tags"><span class="tag ${tagClass(c.t)}">${tagLabel(c.t)}</span></div>
+        <div class="cell-facts"><div class="fact-label">Seats</div><div class="fact-value">${c.seats ? c.seats : '<span class="fact-value na">N/A</span>'}</div></div>
+        <div class="cell-facts"><div class="fact-label">Data on file</div><div class="fact-value">${score > 0 ? score + ' verified fact' + (score>1?'s':'') : '<span class="fact-value na">Not yet documented</span>'}</div></div>
+        <div class="cell-link arrow">&rsaquo;</div>
+      </div>
+    `;
+  }).join('');
+
+  container.querySelectorAll('.college-card').forEach(card => {
+    card.addEventListener('click', () => openProfile(parseInt(card.dataset.id)));
+  });
+  container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', (e) => {
+      const id = parseInt(e.target.dataset.id);
+      if (e.target.checked) state.selected.add(id); else state.selected.delete(id);
+      updateTray();
+    });
+  });
+
+  pagination.innerHTML = `<button id="prevPage" ${state.page<=1?'disabled':''}>&larr; Prev</button><span class="page-info">Page ${state.page} of ${totalPages}</span><button id="nextPage" ${state.page>=totalPages?'disabled':''}>Next &rarr;</button>`;
+  const prevBtn = document.getElementById('prevPage'), nextBtn = document.getElementById('nextPage');
+  if (prevBtn) prevBtn.addEventListener('click', () => { state.page--; renderList(); window.scrollTo({top:0,behavior:'smooth'}); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { state.page++; renderList(); window.scrollTo({top:0,behavior:'smooth'}); });
+}
+
+function updateTray() {
+  const tray = document.getElementById('compareTray');
+  const names = document.getElementById('trayNames');
+  if (state.selected.size === 0) { tray.classList.remove('active'); document.getElementById('compareSection').style.display='none'; return; }
+  tray.classList.add('active');
+  const arr = [...state.selected].map(id => getCollege(id).n);
+  names.textContent = arr.length + ' selected' + (arr.length<=3 ? ': '+arr.join(', ') : '');
+}
+
+function renderCompare() {
+  const selected = [...state.selected].map(getCollege);
+  if (selected.length === 0) return;
+  const table = document.getElementById('compareTable');
+  const rows = [
+    { label: 'State', get: c => c.s },
+    { label: 'Type', get: c => tagLabel(c.t) },
+    { label: 'MBBS seats', get: c => c.seats || 'Not available' },
+    { label: 'Fee (latest on file)', get: c => { const f = feesFor(c.id); return f.length ? f[f.length-1].fee : 'Not available'; } },
+    { label: 'NEET cutoff (latest on file)', get: c => { const cu = cutoffsFor(c.id); return cu.length ? (cu[cu.length-1].year+': '+cu[cu.length-1].rank) : 'Not available'; } },
+    { label: 'NIRF rank', get: c => { const a = accredFor(c.id); const nirf = a.find(x=>x.type.includes('NIRF')); return nirf ? '#'+nirf.rank : 'Not available'; } },
+  ];
+  let html = '<tr><th>College</th>' + selected.map(c => `<th>${c.n}</th>`).join('') + '</tr>';
+  rows.forEach(r => { html += `<tr><td class="metric-label">${r.label}</td>` + selected.map(c => `<td>${r.get(c)}</td>`).join('') + '</tr>'; });
+  table.innerHTML = html;
+  document.getElementById('compareSection').style.display = 'block';
+  document.getElementById('compareSection').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ---------------- Profile view ----------------
+function openProfile(id) {
+  const c = getCollege(id);
+  const cutoffs = cutoffsFor(id);
+  const fees = feesFor(id);
+  const accred = accredFor(id);
+  const facilities = facilitiesFor(id);
+
+  let html = `
+    <div class="profile-head">
+      <h1>${c.n}</h1>
+      <div class="profile-loc">${c.s !== '—' ? c.s : ''}</div>
+      <div class="profile-tags">
+        <span class="tag ${tagClass(c.t)}">${tagLabel(c.t)}</span>
+        ${c.seats ? `<span class="badge badge-ok">Seats: ${c.seats}</span>` : ''}
+      </div>
+    </div>
+
+    <div class="data-section">
+      <h3>NEET Cutoff History</h3>
+      ${cutoffs.length ? `
+        <table class="cutoff-table">
+          <tr><th>Year</th><th>Round</th><th>Quota</th><th>Category</th><th>Closing Rank</th><th>Status</th></tr>
+          ${cutoffs.map(cu => `<tr><td>${cu.year}</td><td>${cu.round||'—'}</td><td>${cu.quota}</td><td>${cu.category}</td><td>${cu.rank}</td><td>${statusBadge(cu.status)}</td></tr>`).join('')}
+        </table>
+      ` : `<div class="empty-state">No cutoff history documented yet for this college. This is one of ~800 colleges still being verified — check back as the dataset grows, or <a href="#" onclick="showView('contribute');return false;">submit data</a> if you have it.</div>`}
+    </div>
+
+    <div class="data-section">
+      <h3>Fees</h3>
+      ${fees.length ? fees.map(f => `
+        <div class="fact-row">
+          <div><div class="flabel">${f.year} · ${f.quota}</div><div class="fsource">${f.source}</div></div>
+          <div><div class="fval">${f.fee}</div>${statusBadge(f.status)}</div>
+        </div>
+      `).join('') : `<div class="empty-state">No fee data confirmed yet for this college.</div>`}
+    </div>
+
+    <div class="data-section">
+      <h3>Accreditation &amp; Rankings</h3>
+      ${accred.length ? accred.map(a => `
+        <div class="fact-row">
+          <div><div class="flabel">${a.type}</div><div class="fsource">${a.source}</div></div>
+          <div><div class="fval">Rank #${a.rank}</div>${statusBadge(a.status)}</div>
+        </div>
+      `).join('') : `<div class="empty-state">No accreditation/ranking data on file for this college.</div>`}
+    </div>
+
+    <div class="data-section">
+      <h3>Facilities — Faculty, Hostel, Patient Load</h3>
+      ${facilities.length ? facilities.map(f => `
+        <div class="fact-row">
+          <div><div class="flabel">${f.field}</div><div class="fsource">${f.source}</div></div>
+          <div><div class="fval">${f.value}</div>${statusBadge(f.status)}</div>
+        </div>
+      `).join('') : `<div class="empty-state">Not yet documented. Faculty counts, hostel conditions, and patient load aren't centrally published for almost any Indian medical college — this needs either an RTI request or a verified student/alumni submission. <a href="#" onclick="showView('contribute');return false;">Help fill this in</a>.</div>`}
+    </div>
+  `;
+  document.getElementById('profileContent').innerHTML = html;
+  showView('profile');
+}
+document.getElementById('backToSearch').addEventListener('click', () => showView('search'));
+
+// ---------------- Wire up ----------------
+document.getElementById('searchInput').addEventListener('input', () => { state.page=1; renderList(); });
+document.getElementById('stateSelect').addEventListener('change', () => { state.page=1; renderList(); });
+document.getElementById('typeSelect').addEventListener('change', () => { state.page=1; renderList(); });
+document.getElementById('sortSelect').addEventListener('change', () => { state.page=1; renderList(); });
+document.getElementById('trayView').addEventListener('click', renderCompare);
+document.getElementById('trayClear').addEventListener('click', () => { state.selected.clear(); renderList(); updateTray(); });
+
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', () => {
+  const root = document.documentElement;
+  const current = root.getAttribute('data-theme');
+  if (current === 'dark') { root.setAttribute('data-theme','light'); themeToggle.textContent='Dark'; }
+  else { root.setAttribute('data-theme','dark'); themeToggle.textContent='Light'; }
+});
+
+async function loadData() {
+  const container = document.getElementById('collegeList');
+  container.innerHTML = '<div class="no-results">Loading college data...</div>';
+  try {
+    const res = await fetch('data.json');
+    if (!res.ok) throw new Error('Failed to load data.json: ' + res.status);
+    DB = await res.json();
+  } catch (err) {
+    container.innerHTML = '<div class="no-results">Could not load college data (data.json). Make sure data.json is uploaded in the same folder as this page. Error: ' + err.message + '</div>';
+    console.error(err);
+    return;
+  }
+  populateStates();
+  renderList();
+}
+loadData();
+</script>
+</body>
+</html>
