@@ -3,505 +3,1517 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MedPath — MBBS/MD College Data, India</title>
+<title>The Admissions Atlas — Medical Colleges of India · 2025–26</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink: #1B2A4A; --ink-soft: #4A5670; --bg: #EEF0EA; --surface: #FFFFFF;
-    --accent: #C97A1A; --accent-deep: #9C5D12; --brick: #8C3B2E; --border: #D3D2C2;
-    --govt-tag: #2F6F5E; --govt-tag-bg: #E1EEE8; --priv-tag: #7A4A9C; --priv-tag-bg: #ECE3F2;
-    --ini-tag: #1B5E8C; --ini-tag-bg: #DCEAF3;
-    --ok: #2F6F5E; --ok-bg: #E1EEE8; --mid: #8A7A4A; --mid-bg: #F1ECDD;
-    --bad: #8C3B2E; --bad-bg: #F5E4E1; --focus: #1B2A4A;
-  }
-  :root:not([data-theme="light"]) {
-    @media (prefers-color-scheme: dark) {
-      --ink: #EDEBE1; --ink-soft: #B9BCC7; --bg: #191B17; --surface: #232620;
-      --accent: #E8A24B; --accent-deep: #F0B96E; --brick: #D98A78; --border: #3A3D34;
-      --govt-tag: #7FCBB2; --govt-tag-bg: #223530; --priv-tag: #C9A7E8; --priv-tag-bg: #2E2836;
-      --ini-tag: #8EC3E8; --ini-tag-bg: #1E2E3A;
-      --ok: #7FCBB2; --ok-bg: #223530; --mid: #E8C77A; --mid-bg: #34301F;
-      --bad: #D98A78; --bad-bg: #3A2622; --focus: #E8A24B;
-    }
-  }
-  :root[data-theme="dark"] {
-    --ink: #EDEBE1; --ink-soft: #B9BCC7; --bg: #191B17; --surface: #232620;
-    --accent: #E8A24B; --accent-deep: #F0B96E; --brick: #D98A78; --border: #3A3D34;
-    --govt-tag: #7FCBB2; --govt-tag-bg: #223530; --priv-tag: #C9A7E8; --priv-tag-bg: #2E2836;
-    --ini-tag: #8EC3E8; --ini-tag-bg: #1E2E3A;
-    --ok: #7FCBB2; --ok-bg: #223530; --mid: #E8C77A; --mid-bg: #34301F;
-    --bad: #D98A78; --bad-bg: #3A2622; --focus: #E8A24B;
-  }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
-  h1, h2, h3 { font-family: 'Lora', serif; margin: 0; color: var(--ink); }
-  a { color: var(--accent-deep); }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-  button, input, select { font-family: inherit; font-size: inherit; color: inherit; }
-  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
-  @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+/* ============ TOKENS (light) ============ */
+:root{
+  --paper:#F5F0E4; --paper2:#EDE6D4; --ink:#1A2B22; --ink60:rgba(26,43,34,.62); --ink35:rgba(26,43,34,.35);
+  --line:rgba(26,43,34,.16); --line2:rgba(26,43,34,.32);
+  --green:#1C4A38; --green-soft:rgba(28,74,56,.12);
+  --brass:#8A6A1C; --brass-soft:rgba(138,106,28,.14);
+  --verm:#B03A1A; --verm-soft:rgba(176,58,26,.09);
+  --onSolid:rgba(245,240,228,.14);
+  --serif:'Fraunces',Georgia,serif; --sans:'Archivo',sans-serif; --mono:'IBM Plex Mono',monospace;
+  --headH:64px;
+}
+/* ============ TOKENS (dark — MedPath-style theming) ============ */
+[data-theme="dark"]{
+  --paper:#141915; --paper2:#1B211C; --ink:#EAE4D2; --ink60:rgba(234,228,210,.62); --ink35:rgba(234,228,210,.35);
+  --line:rgba(234,228,210,.15); --line2:rgba(234,228,210,.32);
+  --green:#7CC7A3; --green-soft:rgba(124,199,163,.14);
+  --brass:#D9B45C; --brass-soft:rgba(217,180,92,.14);
+  --verm:#E57B57; --verm-soft:rgba(229,123,87,.13);
+  --onSolid:rgba(20,25,21,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:140px}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E")}
+::selection{background:var(--green);color:var(--paper)}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px dashed var(--green);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:clamp(20px,4vw,48px)}
+b,strong{font-variant-numeric:tabular-nums}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
+input[type=number]{-moz-appearance:textfield;appearance:textfield}
+.mono{font-family:var(--mono);font-weight:600;letter-spacing:-.02em}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 
-  header.top { border-bottom: 1px solid var(--border); padding: 14px 0; position: sticky; top: 0; background: var(--bg); z-index: 30; }
-  .top-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-  .brand-mark { font-family: 'Lora', serif; font-weight: 700; font-size: 1.2rem; cursor: pointer; }
-  .brand-tag { font-size: 0.78rem; color: var(--ink-soft); margin-left: 8px; }
-  .nav-btns { display: flex; gap: 8px; }
-  .nav-btn { background: none; border: 1px solid var(--border); border-radius: 999px; padding: 6px 13px; cursor: pointer; font-size: 0.78rem; color: var(--ink-soft); }
-  .nav-btn:hover, .nav-btn.active { border-color: var(--accent); color: var(--accent); }
+/* ============ HEADER ============ */
+header{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--headH);background:var(--paper);border-bottom:1px solid transparent;transition:border-color .3s}
+header.scrolled{border-bottom-color:var(--line2)}
+.head-in{height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand svg{width:26px;height:26px}
+.brand-name{font:600 13px/1.1 var(--sans);letter-spacing:.22em}
+.brand-name em{font:italic 400 12px/1.1 var(--serif);letter-spacing:.02em;display:block;color:var(--ink60)}
+nav{display:flex;gap:22px}
+nav a{font:600 11.5px/1 var(--sans);letter-spacing:.16em;text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;transition:.2s}
+nav a:hover{border-bottom-color:var(--ink)}
+.head-right{display:flex;align-items:center;gap:10px}
+.theme-btn{font:600 10px/1 var(--sans);letter-spacing:.16em;border:1px solid var(--line2);padding:8px 12px;border-radius:999px;color:var(--ink60);transition:.2s}
+.theme-btn:hover{border-color:var(--ink);color:var(--ink)}
+.score-chip{display:flex;align-items:center;gap:8px;border:1px solid var(--line2);padding:6px 10px;border-radius:3px}
+.score-chip label{font:600 10px/1 var(--sans);letter-spacing:.16em;color:var(--ink60)}
+.score-chip input{width:52px;border:none;background:none;font:600 14px/1 var(--sans);text-align:right;font-variant-numeric:tabular-nums}
+.score-chip .of{font:500 11px/1 var(--sans);color:var(--ink60)}
 
-  .view { display: none; }
-  .view.active { display: block; }
+/* ============ HERO ============ */
+.hero{padding:calc(var(--headH) + clamp(40px,7vh,84px)) 0 clamp(40px,6vh,64px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(32px,5vw,72px);align-items:start}
+.kicker{display:flex;align-items:center;gap:14px;font:600 11px/1 var(--sans);letter-spacing:.22em;color:var(--ink60);margin-bottom:26px}
+.kicker::before{content:"";width:44px;height:1px;background:var(--ink)}
+h1{font:480 clamp(2.5rem,5.4vw,4.6rem)/1.04 var(--serif);letter-spacing:-.02em;margin-bottom:22px}
+h1 em{font-style:italic;color:var(--green)}
+.lede{max-width:56ch;color:var(--ink60);font-size:16.5px;margin-bottom:34px}
 
-  .hero { padding: 26px 0 16px; }
-  .hero h1 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 600; max-width: 34ch; line-height: 1.2; }
-  .hero .sub { margin-top: 8px; max-width: 62ch; color: var(--ink-soft); font-size: 0.92rem; }
+.calibrate{border:1px solid var(--ink);max-width:560px;background:var(--paper)}
+.cal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--green);color:var(--paper);padding:10px 16px}
+.cal-head b{font:600 11px/1 var(--sans);letter-spacing:.2em}
+.cal-head span{font:italic 400 12px/1.3 var(--serif);opacity:.85}
+.cal-cats{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line)}
+.cal-cats .lab{font:600 9.5px/1 var(--sans);letter-spacing:.16em;color:var(--ink60)}
+.cal-body{display:grid;grid-template-columns:1fr 1fr}
+.score-field{padding:18px 20px;border-right:1px solid var(--line)}
+.score-field label{display:block;font:600 10px/1 var(--sans);letter-spacing:.16em;color:var(--ink60);margin-bottom:8px}
+.score-row{display:flex;align-items:baseline;gap:8px}
+.score-row input{width:120px;border:none;background:none;font:450 44px/1 var(--serif);font-variant-numeric:tabular-nums;color:var(--ink)}
+.score-row input:focus{outline:none}
+.score-row .of{font:italic 400 15px/1 var(--serif);color:var(--ink60)}
+input[type=range]{width:100%;margin-top:14px;-webkit-appearance:none;appearance:none;background:none;height:18px;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--line2)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--green);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--green);margin-top:-6px}
+input[type=range]::-moz-range-track{height:2px;background:var(--line2)}
+input[type=range]::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:var(--green);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--green)}
+.cal-dist{padding:16px 20px;display:flex;flex-direction:column;justify-content:center;gap:9px}
+.dist-line{display:flex;align-items:center;gap:10px;font:500 13px/1 var(--sans)}
+.dist-line .dot{width:9px;height:9px;border-radius:50%;flex:none}
+.dist-line .lab{letter-spacing:.04em}
+.dist-line .lead{flex:1;border-bottom:1px dotted var(--line2)}
+.dist-line b{font:600 15px/1 var(--sans);font-variant-numeric:tabular-nums}
+.dot.g{background:var(--green)} .dot.b{background:var(--brass)} .dot.v{background:var(--verm)}
+.dist-note{font:italic 400 12.5px/1.5 var(--serif);color:var(--ink60);margin-top:6px}
 
-  .controls { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 16px; margin-top: 14px; }
-  .controls-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 10px; }
-  @media (max-width: 800px) { .controls-grid { grid-template-columns: 1fr 1fr; } }
-  .field label { display: block; font-size: 0.72rem; color: var(--ink-soft); margin-bottom: 4px; }
-  .field input, .field select { width: 100%; padding: 8px 9px; border: 1px solid var(--border); border-radius: 3px; background: var(--bg); color: var(--ink); }
+.stamp{font:600 10.5px/1 var(--sans);letter-spacing:.13em;padding:9px 11px;border:1px solid var(--line2);border-radius:2px;transition:.18s;background:var(--paper)}
+.stamp:hover{border-color:var(--ink)}
+.stamp[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.stamp .sub{display:block;font:500 8.5px/1 var(--sans);letter-spacing:.06em;opacity:.6;margin-top:4px;text-transform:none}
 
-  .notice { margin: 16px 0; border-left: 3px solid var(--brick); background: var(--surface); padding: 11px 15px; font-size: 0.8rem; color: var(--ink-soft); border-radius: 0 3px 3px 0; }
-  .notice strong { color: var(--ink); }
+.hero-right{border-left:1px solid var(--line2);padding-left:clamp(20px,2.5vw,36px)}
+.stat{padding:16px 0;border-bottom:1px solid var(--line)}
+.stat:last-child{border-bottom:none}
+.stat .num{font:420 clamp(2rem,3vw,2.9rem)/1 var(--serif);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.stat .num sup{font-size:.45em;color:var(--brass);top:-.9em}
+.stat .lbl{font:600 10.5px/1.4 var(--sans);letter-spacing:.14em;color:var(--ink60);text-transform:uppercase;margin-top:6px}
+.hero-cta{margin-top:34px;display:inline-flex;align-items:center;gap:10px;font:600 11.5px/1 var(--sans);letter-spacing:.18em;text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:6px}
+.hero-cta svg{width:14px;height:14px}
 
-  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 16px 0 10px; flex-wrap: wrap; }
-  .section-head h2 { font-size: 1.1rem; font-weight: 600; }
-  .count-tag { font-size: 0.8rem; color: var(--ink-soft); }
+/* ============ MARQUEE ============ */
+.marquee{overflow:hidden;border-block:1px solid var(--ink);background:var(--green);color:var(--paper)}
+.marquee-track{display:flex;width:max-content;animation:mq 60s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.m-half{display:flex;align-items:center;white-space:nowrap;padding-block:11px}
+.mi{font:600 11px/1 var(--sans);letter-spacing:.2em}
+.mdot{margin-inline:18px;font:400 14px/1 var(--serif);opacity:.55}
+@keyframes mq{to{transform:translateX(-50%)}}
 
-  .college-card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
-    padding: 12px 15px; margin-bottom: 7px; display: grid;
-    grid-template-columns: 22px 1.8fr 1fr 1fr 1fr auto; gap: 10px; align-items: center; cursor: pointer;
-  }
-  .college-card:hover { border-color: var(--accent); }
-  @media (max-width: 900px) {
-    .college-card { grid-template-columns: 20px 1fr; grid-template-areas: "check name" ". tags" ". stats" ". link"; row-gap: 6px; }
-    .college-card .cell-tags { grid-area: tags; }
-    .college-card .cell-facts { grid-area: stats; display: flex !important; gap: 14px; flex-wrap: wrap; }
-    .college-card .cell-link { grid-area: link; }
-  }
-  .college-card input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--accent); }
-  .college-name { font-weight: 600; font-size: 0.9rem; }
-  .college-loc { font-size: 0.76rem; color: var(--ink-soft); }
-  .tag { display: inline-block; font-size: 0.66rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; }
-  .tag-govt { background: var(--govt-tag-bg); color: var(--govt-tag); }
-  .tag-priv { background: var(--priv-tag-bg); color: var(--priv-tag); }
-  .tag-ini { background: var(--ini-tag-bg); color: var(--ini-tag); }
-  .fact-label { font-size: 0.66rem; color: var(--ink-soft); }
-  .fact-value { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; font-weight: 600; }
-  .fact-value.na { color: var(--ink-soft); font-family: inherit; font-weight: 400; font-size: 0.78rem; }
-  .arrow { color: var(--ink-soft); font-size: 1rem; }
+/* ============ SECTION HEADS ============ */
+section{padding:clamp(56px,8vh,96px) 0 0}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:24px;align-items:end;margin-bottom:30px}
+.sec-head h2{font:450 clamp(1.7rem,2.8vw,2.5rem)/1.1 var(--serif);letter-spacing:-.015em}
+.sec-head h2 .sec-num{font:italic 400 .55em/1 var(--serif);color:var(--brass);vertical-align:.55em;margin-right:12px}
+.sec-head p{font-size:14px;color:var(--ink60);border-left:2px solid var(--brass);padding-left:14px}
 
-  .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.02em; }
-  .badge-ok { background: var(--ok-bg); color: var(--ok); }
-  .badge-mid { background: var(--mid-bg); color: var(--mid); }
-  .badge-bad { background: var(--bad-bg); color: var(--bad); }
-  .badge-none { background: var(--border); color: var(--ink-soft); }
+/* ============ MATCHER ============ */
+.enquiry{border:1px solid var(--ink);background:var(--paper);max-width:960px}
+.enq-head{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--green);color:var(--paper);padding:10px 16px}
+.enq-head b{font:600 11px/1 var(--sans);letter-spacing:.2em}
+.enq-head span{font:italic 400 12px/1.3 var(--serif);opacity:.85}
+.enq-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr)}
+.enq-score{padding:20px;border-right:1px solid var(--line)}
+.enq-score label{display:block;font:600 10px/1 var(--sans);letter-spacing:.16em;color:var(--ink60);margin-bottom:8px}
+.enq-score .score-row input{width:150px;font-size:48px}
+.enq-cats{padding:20px;display:flex;flex-direction:column;gap:12px}
+.enq-cats .lab{font:600 10px/1 var(--sans);letter-spacing:.16em;color:var(--ink60)}
+.enq-cats .cat-row{display:flex;gap:8px;flex-wrap:wrap}
+.enq-foot{grid-column:1/-1;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;padding:14px 20px}
+.enq-ctl{display:flex;align-items:center;gap:8px}
+.enq-ctl label{font:600 9.5px/1 var(--sans);letter-spacing:.14em;color:var(--ink60);white-space:nowrap}
+.enq-ctl select{appearance:none;-webkit-appearance:none;border:1px solid var(--line2);background:var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 8px center;padding:9px 26px 9px 10px;font:600 12px/1 var(--sans);cursor:pointer;border-radius:2px}
+.enq-ctl select:focus{outline:none;border-color:var(--ink)}
+.enq-btn{margin-left:auto;background:var(--ink);color:var(--paper);font:600 11.5px/1 var(--sans);letter-spacing:.16em;padding:14px 20px;border-radius:2px;transition:.2s;display:inline-flex;align-items:center;gap:10px}
+.enq-btn svg{width:14px;height:14px}
+.enq-btn:hover{background:var(--green);border-color:var(--green)}
+.enq-fine{max-width:960px;font:italic 400 12.5px/1.65 var(--serif);color:var(--ink60);margin-top:14px}
+@keyframes shake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(2px)}30%,50%,70%{transform:translateX(-3px)}40%,60%{transform:translateX(3px)}}
+.shake{animation:shake .45s}
 
-  .pagination { display: flex; justify-content: center; gap: 8px; margin: 18px 0 30px; align-items: center; }
-  .pagination button { border: 1px solid var(--border); background: var(--surface); border-radius: 3px; padding: 6px 11px; cursor: pointer; font-size: 0.82rem; }
-  .pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
-  .page-info { font-size: 0.8rem; color: var(--ink-soft); }
+#matchResults{margin-top:34px}
+.m-empty{padding:56px 0;border-block:1px solid var(--ink);text-align:center}
+.m-empty p{font:italic 400 21px/1.5 var(--serif)}
+.m-empty .sub{font:400 14px/1.6 var(--sans);color:var(--ink60);font-style:normal;margin-top:10px}
+.match-summary{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 22px;padding:18px 0 14px;border-bottom:1px solid var(--ink)}
+.match-summary .who{font:450 clamp(1.25rem,2vw,1.6rem)/1 var(--serif)}
+.match-summary .who .of{font:italic 400 .55em/1 var(--serif);color:var(--ink60)}
+.ms-item{display:flex;align-items:center;gap:8px;font:500 12.5px/1 var(--sans)}
+.ms-item .dot{width:8px;height:8px;border-radius:50%}
+.ms-item b{font:600 14px/1 var(--sans);font-variant-numeric:tabular-nums}
+.ms-item.beyond{opacity:.55}
+#matchResults .chip-filters{padding:12px 0 4px}
+.chip-filters{display:flex;gap:6px;flex-wrap:wrap}
+.fchip{font:600 9.5px/1 var(--sans);letter-spacing:.12em;padding:8px 12px;border:1px solid var(--line2);border-radius:999px;transition:.18s}
+.fchip:hover{border-color:var(--ink)}
+.fchip[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--paper)}
+.mrow{display:grid;grid-template-columns:128px minmax(0,1fr) minmax(0,340px) 96px;gap:0 18px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);cursor:pointer;transition:background .2s;animation:rowIn .5s cubic-bezier(.22,.8,.24,1) both}
+@keyframes rowIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.mrow:hover{background:rgba(26,43,34,.045)}
+[data-theme="dark"] .mrow:hover{background:rgba(234,228,210,.045)}
+.chance{display:flex;flex-direction:column;align-items:flex-start;gap:7px}
+.chance .pct{font:450 34px/1 var(--serif);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.chance .pct small{font:italic 400 .42em/1 var(--serif);color:var(--ink60)}
+.meter{width:100%;max-width:96px;height:3px;background:var(--line);position:relative}
+.meter i{position:absolute;top:0;bottom:0;left:0;display:block;background:var(--green)}
+.meter i.border{background:var(--brass)}
+.meter i.stretch{background:var(--verm)}
+.mrow .ident h3{font:500 clamp(1.02rem,1.5vw,1.24rem)/1.25 var(--serif);letter-spacing:-.01em}
+.mrow:hover .ident h3{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px;text-decoration-color:var(--ink35)}
+.mrow .ident .meta{font:500 12px/1.5 var(--sans);color:var(--ink60);margin-top:4px}
+.gapline{font:500 11.5px/1.5 var(--sans);color:var(--ink60);margin-top:5px}
+.gapline b{color:var(--ink)}
+.basis{font:600 9px/1 var(--sans);letter-spacing:.1em;color:var(--ink60);text-transform:uppercase;border:1px solid var(--line);padding:2px 5px;border-radius:2px;margin-left:6px}
+.mfigs{display:grid;grid-template-columns:1.2fr .8fr 1fr;gap:12px}
+.fig{border-left:1px solid var(--line);padding-left:12px;min-width:0}
+.fig > span{display:block;font:600 9px/1 var(--sans);letter-spacing:.14em;color:var(--ink60);margin-bottom:6px;text-transform:uppercase}
+.fig b{font:600 15px/1.2 var(--sans);font-variant-numeric:tabular-nums;display:block;word-break:keep-all}
+.fig .small-of{font:500 10.5px/1.4 var(--sans);color:var(--ink60);display:block;margin-top:3px}
+.chip{display:inline-block;font:600 9.5px/1 var(--sans);letter-spacing:.1em;padding:4px 7px;border-radius:2px;margin-top:6px}
+.chip.comfort{background:var(--green-soft);color:var(--green)}
+.chip.border{background:var(--brass-soft);color:var(--brass)}
+.chip.stretch{background:var(--verm-soft);color:var(--verm)}
+.acts{display:flex;gap:8px;justify-content:flex-end}
+.icon-btn{width:36px;height:36px;border:1px solid var(--line2);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;transition:.2s;background:var(--paper)}
+.icon-btn svg{width:15px;height:15px}
+.icon-btn:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.icon-btn.active{background:var(--green);border-color:var(--green);color:var(--paper)}
+.m-foot{font:italic 400 12px/1.6 var(--serif);color:var(--ink60);padding:14px 0}
 
-  .compare-tray { position: sticky; bottom: 0; background: var(--ink); color: var(--bg); padding: 11px 0; display: none; z-index: 25; border-top: 1px solid var(--border); }
-  .compare-tray.active { display: block; }
-  .compare-tray .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  .compare-tray .names { font-size: 0.82rem; opacity: 0.9; }
-  .compare-tray button.view2 { background: var(--accent); color: #1B2A4A; border: none; border-radius: 3px; padding: 7px 14px; font-weight: 600; cursor: pointer; }
-  .compare-tray button.clear { background: none; border: 1px solid rgba(255,255,255,0.4); color: inherit; border-radius: 3px; padding: 7px 12px; cursor: pointer; font-size: 0.8rem; }
+/* ============ VERIFICATION BADGES (from MedPath) ============ */
+.vbadge{display:inline-block;font:700 8.5px/1 var(--sans);letter-spacing:.08em;padding:3px 6px;border-radius:2px;text-transform:uppercase}
+.vbadge.ok{background:var(--green-soft);color:var(--green)}
+.vbadge.mid{background:var(--brass-soft);color:var(--brass)}
+.vbadge.bad{background:var(--verm-soft);color:var(--verm)}
+.vbadge.none{background:rgba(128,128,128,.15);color:var(--ink60)}
 
-  .compare-wrap { overflow-x: auto; margin-bottom: 30px; }
-  table.compare { width: 100%; border-collapse: collapse; min-width: 560px; background: var(--surface); border: 1px solid var(--border); }
-  table.compare th, table.compare td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); font-size: 0.84rem; vertical-align: top; }
-  table.compare th { color: var(--ink-soft); font-weight: 600; font-size: 0.74rem; white-space: nowrap; }
-  table.compare td.metric-label { color: var(--ink-soft); font-size: 0.74rem; white-space: nowrap; }
+/* ============ TOOLBAR / DIRECTORY ============ */
+.toolbar{position:sticky;top:var(--headH);z-index:60;background:var(--paper);border-block:1px solid var(--ink)}
+.toolbar-in{display:flex;align-items:stretch;min-height:54px;flex-wrap:wrap}
+.tsearch{flex:1 1 220px;display:flex;align-items:center;gap:10px;padding:8px 16px 8px 4px;border-right:1px solid var(--line)}
+.tsearch svg{width:16px;height:16px;color:var(--ink60);flex:none}
+.tsearch input{width:100%;border:none;background:none;padding:4px 0}
+.tsearch input:focus{outline:none}
+.tsearch input::placeholder{color:var(--ink35);font-style:italic;font-family:var(--serif)}
+.tsel{display:flex;align-items:center;border-right:1px solid var(--line)}
+.tsel label{font:600 9.5px/1 var(--sans);letter-spacing:.14em;color:var(--ink60);padding:0 8px 0 14px;white-space:nowrap}
+.tsel select{appearance:none;-webkit-appearance:none;border:none;background:var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 6px center;padding:8px 24px 8px 4px;font:600 12.5px/1 var(--sans);cursor:pointer;max-width:170px}
+.tsel select:focus{outline:none}
+.tcount{margin-left:auto;display:flex;align-items:center;padding:0 14px;font:500 12px/1.3 var(--sans);color:var(--ink60);text-align:right}
+.tcount b{color:var(--ink)}
 
-  /* Profile view */
-  .back-btn { background: none; border: none; color: var(--accent-deep); cursor: pointer; font-size: 0.86rem; padding: 0; margin-bottom: 14px; }
-  .profile-head { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 20px; }
-  .profile-head h1 { font-size: 1.4rem; }
-  .profile-loc { color: var(--ink-soft); font-size: 0.88rem; margin-top: 4px; }
-  .profile-tags { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+.ledger-head{display:grid;grid-template-columns:56px minmax(0,1fr) minmax(0,440px) 96px;gap:0 18px;padding:14px 0 8px;border-bottom:1px solid var(--ink)}
+.ledger-head .col-lab{font:600 9.5px/1 var(--sans);letter-spacing:.16em;color:var(--ink60)}
+.ledger-head .figs-labels{display:grid;grid-template-columns:1.15fr .65fr 1.05fr .8fr;gap:12px}
+.row{display:grid;grid-template-columns:56px minmax(0,1fr) minmax(0,440px) 96px;gap:0 18px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line);cursor:pointer;transition:background .2s;animation:rowIn .5s cubic-bezier(.22,.8,.24,1) both}
+.row:hover{background:rgba(26,43,34,.045)}
+[data-theme="dark"] .row:hover{background:rgba(234,228,210,.045)}
+.idx{font:400 26px/1 var(--serif);color:var(--ink35);transition:color .2s;font-variant-numeric:tabular-nums}
+.row:hover .idx{color:var(--green)}
+.tags{display:flex;gap:6px;margin-bottom:9px;flex-wrap:wrap;align-items:center}
+.tag{font:600 9.5px/1 var(--sans);letter-spacing:.14em;padding:5px 8px;border:1px solid;border-radius:2px}
+.tag.Government{background:var(--green);border-color:var(--green);color:var(--paper)}
+.tag.Private{color:var(--brass);border-color:var(--brass)}
+.tag.Deemed{color:var(--ink);border-color:var(--ink)}
+.tag.ini{color:var(--brass);border-color:var(--brass);background:var(--brass-soft)}
+.ident h3{font:500 clamp(1.05rem,1.6vw,1.3rem)/1.25 var(--serif);letter-spacing:-.01em}
+.row:hover .ident h3{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px;text-decoration-color:var(--ink35)}
+.ident .meta{font:500 12px/1.5 var(--sans);color:var(--ink60);margin-top:5px}
+.figs{display:grid;grid-template-columns:1.15fr .65fr 1.05fr .8fr;gap:12px}
+.empty{padding:64px 0;text-align:center;font:italic 400 19px/1.5 var(--serif);color:var(--ink60)}
+.empty button{border-bottom:1px solid var(--ink);font:600 12px/1 var(--sans);letter-spacing:.12em;margin-top:14px}
+.pager{display:flex;align-items:center;justify-content:center;gap:14px;padding:26px 0 8px}
+.pager button{font:600 11px/1 var(--sans);letter-spacing:.1em;border:1px solid var(--line2);padding:11px 16px;border-radius:2px;background:var(--paper);transition:.2s}
+.pager button:hover:not(:disabled){border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.pager button:disabled{opacity:.35;cursor:not-allowed}
+.pager .pginfo{font:500 12px/1 var(--sans);color:var(--ink60);font-variant-numeric:tabular-nums}
 
-  .data-section { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 18px; margin-top: 14px; }
-  .data-section h3 { font-size: 0.98rem; margin-bottom: 10px; }
-  .fact-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 8px 0; border-top: 1px solid var(--border); font-size: 0.86rem; }
-  .fact-row:first-of-type { border-top: none; }
-  .fact-row .flabel { color: var(--ink-soft); }
-  .fact-row .fval { font-weight: 600; text-align: right; }
-  .fact-row .fsource { font-size: 0.74rem; color: var(--ink-soft); margin-top: 2px; }
-  .empty-state { font-size: 0.84rem; color: var(--ink-soft); padding: 6px 0; }
-  .empty-state a { font-weight: 600; }
+/* ============ DOSSIER ============ */
+.scrim{position:fixed;inset:0;background:rgba(10,14,12,.5);z-index:150;opacity:0;pointer-events:none;transition:opacity .35s;backdrop-filter:blur(2px)}
+.scrim.on{opacity:1;pointer-events:auto}
+.dossier{position:fixed;top:0;right:0;bottom:0;width:min(520px,100%);z-index:160;background:var(--paper);border-left:1px solid var(--ink);transform:translateX(102%);transition:transform .45s cubic-bezier(.22,.8,.24,1);overflow-y:auto;overscroll-behavior:contain}
+.dossier.open{transform:none}
+.dossier-in{padding:26px 28px 40px}
+.dos-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:18px}
+.dossier h2{font:480 26px/1.15 var(--serif);letter-spacing:-.015em;margin-bottom:8px}
+.dos-meta{font:500 12.5px/1.5 var(--sans);color:var(--ink60)}
+.verline{font:500 11.5px/1.6 var(--sans);color:var(--ink60);margin-top:10px}
+.verline b{color:var(--ink)}
+.dos-note{font:italic 400 16.5px/1.55 var(--serif);border-block:1px solid var(--line2);padding:16px 2px;margin:20px 0;color:var(--ink)}
+.dos-note::before{content:"— "}
+.verdict-banner{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:3px;font:600 12.5px/1.4 var(--sans);margin-bottom:6px}
+.verdict-banner .dot{width:10px;height:10px;border-radius:50%;flex:none}
+.verdict-banner small{display:block;font:500 11.5px/1.4 var(--sans);opacity:.75;letter-spacing:.02em}
+.spec{display:flex;justify-content:space-between;gap:18px;padding:11px 0;border-bottom:1px solid var(--line)}
+.spec dt{font:600 10px/1.6 var(--sans);letter-spacing:.13em;color:var(--ink60);text-transform:uppercase;flex:none}
+.spec dd{font:600 13.5px/1.5 var(--sans);text-align:right;font-variant-numeric:tabular-nums}
+.ds-block{margin-top:22px}
+.ds-block > h4{font:600 10.5px/1 var(--sans);letter-spacing:.18em;color:var(--ink60);margin-bottom:10px;text-transform:uppercase}
+.ds-empty{font:italic 400 13.5px/1.65 var(--serif);color:var(--ink60);padding:6px 0}
+.ds-empty a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.hist-wrap{overflow-x:auto}
+table.hist{width:100%;border-collapse:collapse}
+table.hist th{font:600 9px/1 var(--sans);letter-spacing:.12em;color:var(--ink60);text-align:left;padding:0 12px 8px 0;text-transform:uppercase;border-bottom:1px solid var(--line2);white-space:nowrap}
+table.hist td{padding:9px 12px 9px 0;border-bottom:1px solid var(--line);font:500 12.5px/1.4 var(--sans);font-variant-numeric:tabular-nums;white-space:nowrap;vertical-align:top}
+table.hist .src{display:block;font:400 10.5px/1.4 var(--sans);color:var(--ink60);white-space:normal;margin-top:2px;max-width:200px}
+.bond-block{margin-top:20px;border-left:3px solid var(--verm);background:var(--verm-soft);padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.bond-block svg{width:18px;height:18px;color:var(--verm);flex:none;margin-top:2px}
+.bond-block b{font:600 10.5px/1 var(--sans);letter-spacing:.16em;color:var(--verm);display:block;margin-bottom:6px}
+.bond-block p{font:500 13px/1.55 var(--sans)}
+.dos-actions{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.btn{font:600 11.5px/1 var(--sans);letter-spacing:.12em;padding:13px 18px;border-radius:2px;transition:.2s;border:1px solid var(--ink)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.primary:hover{background:var(--green);border-color:var(--green)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.dos-fine{font:italic 400 11.5px/1.6 var(--serif);color:var(--ink60);margin-top:22px}
 
-  .cutoff-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
-  .cutoff-table th, .cutoff-table td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border); }
-  .cutoff-table th { font-size: 0.72rem; color: var(--ink-soft); font-weight: 600; }
+/* ============ COMPARE ============ */
+.cmp-modal{position:fixed;inset:0;z-index:170;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s}
+.cmp-modal.open{opacity:1;pointer-events:auto}
+.cmp-panel{background:var(--paper);border:1px solid var(--ink);width:min(1080px,100%);max-height:min(86vh,860px);display:flex;flex-direction:column;transform:translateY(16px);transition:transform .35s cubic-bezier(.22,.8,.24,1);box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.cmp-modal.open .cmp-panel{transform:none}
+.cmp-head{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--ink)}
+.cmp-head h3{font:480 21px/1 var(--serif)}
+.cmp-head .hint{font:italic 400 12px/1 var(--serif);color:var(--ink60);margin-left:14px}
+.cmp-scroll{overflow:auto;padding:0 22px 22px}
+.cmp-table{width:100%;border-collapse:collapse;min-width:640px}
+.cmp-table th,.cmp-table td{border-bottom:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top}
+.cmp-table thead th{border-bottom:1px solid var(--ink);vertical-align:bottom;padding-top:16px}
+.cmp-table thead .c-name{font:500 15.5px/1.25 var(--serif)}
+.cmp-table thead .c-remove{display:inline-flex;margin-bottom:6px}
+.cmp-table td.attr{font:600 10px/1.5 var(--sans);letter-spacing:.13em;color:var(--ink60);text-transform:uppercase;white-space:nowrap;width:170px}
+.cmp-table td.val{font:500 13px/1.45 var(--sans);font-variant-numeric:tabular-nums}
+td.best{box-shadow:inset 0 -2px 0 var(--green)}
+td.best .bmark{font:600 9px/1 var(--sans);letter-spacing:.12em;color:var(--green);display:block;margin-top:4px}
 
-  .explainer { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 18px; margin-top: 20px; }
-  .steps-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
-  @media (max-width: 960px) { .steps-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 560px) { .steps-grid { grid-template-columns: 1fr; } }
-  .step { border-top: 2px solid var(--accent); padding-top: 8px; }
-  .step-num { font-family: 'Lora', serif; font-weight: 700; color: var(--accent); font-size: 1.05rem; margin-bottom: 4px; }
-  .step-title { font-weight: 600; font-size: 0.84rem; margin-bottom: 4px; }
-  .step-text { font-size: 0.76rem; color: var(--ink-soft); line-height: 1.5; }
+.tray{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:140;display:flex;align-items:center;gap:14px;background:var(--ink);color:var(--paper);padding:10px 12px 10px 18px;border-radius:4px;box-shadow:0 16px 40px rgba(0,0,0,.35);animation:rowIn .4s both;max-width:min(92vw,720px)}
+.tray-chips{display:flex;gap:8px;flex-wrap:wrap}
+.tchip{display:inline-flex;align-items:center;gap:8px;background:var(--onSolid);padding:6px 8px 6px 12px;border-radius:2px;font:600 11.5px/1 var(--sans);white-space:nowrap}
+.tchip button{display:inline-flex;opacity:.7}
+.tchip button:hover{opacity:1}
+.tchip svg{width:12px;height:12px}
+.tray-btn{background:var(--paper);color:var(--ink);font:600 11.5px/1 var(--sans);letter-spacing:.12em;padding:11px 16px;border-radius:2px;transition:.2s}
+.tray-btn:hover{background:var(--brass);color:var(--paper)}
+.tray-clear{font:600 10px/1 var(--sans);letter-spacing:.1em;color:var(--paper);opacity:.65;padding:8px 4px}
+.tray-clear:hover{opacity:1}
 
-  .contribute-card { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 22px; margin-top: 16px; text-align: center; }
-  .contribute-card a.form-link { display: inline-block; margin-top: 12px; background: var(--ink); color: var(--bg); padding: 11px 20px; border-radius: 3px; text-decoration: none; font-weight: 600; font-size: 0.88rem; }
+/* ============ PROCESS / CHECKLIST ============ */
+.steps{border-top:1px solid var(--ink)}
+.step{border-bottom:1px solid var(--line)}
+.step-head{width:100%;display:flex;align-items:center;gap:clamp(14px,3vw,32px);padding:22px 4px;text-align:left;transition:.2s}
+.step-head:hover{background:rgba(26,43,34,.04)}
+[data-theme="dark"] .step-head:hover{background:rgba(234,228,210,.045)}
+.step-num{font:italic 400 20px/1 var(--serif);color:var(--brass);width:44px;flex:none;font-variant-numeric:tabular-nums}
+.step-head h3{font:500 clamp(1.15rem,2vw,1.5rem)/1.2 var(--serif);flex:1;letter-spacing:-.01em}
+.step-head .chev{transition:transform .35s;color:var(--ink60)}
+.step.open .step-head .chev{transform:rotate(180deg)}
+.step-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.22,.8,.24,1)}
+.step.open .step-body{grid-template-rows:1fr}
+.step-body > div{overflow:hidden}
+.step-inner{padding:0 4px 26px 0;margin-left:calc(44px + clamp(14px,3vw,32px));max-width:70ch}
+.step-inner p{color:var(--ink60);font-size:15px}
+.watchout{display:flex;gap:12px;margin-top:16px;background:var(--verm-soft);border-left:3px solid var(--verm);padding:12px 14px;font:500 13px/1.55 var(--sans)}
+.watchout svg{width:16px;height:16px;color:var(--verm);flex:none;margin-top:2px}
 
-  .theme-toggle { background: none; border: 1px solid var(--border); border-radius: 999px; padding: 6px 13px; cursor: pointer; font-size: 0.78rem; color: var(--ink-soft); }
-  footer { border-top: 1px solid var(--border); padding: 20px 0 32px; color: var(--ink-soft); font-size: 0.78rem; }
-  .no-results { padding: 26px 0; color: var(--ink-soft); text-align: center; font-size: 0.9rem; }
+.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,64px)}
+.check-col > h3{font:500 20px/1.2 var(--serif);padding-bottom:14px;border-bottom:1px solid var(--ink);margin-bottom:4px}
+.check-col > h3 span{font:600 10px/1 var(--sans);letter-spacing:.16em;color:var(--ink60);display:block;margin-bottom:8px}
+.c-item{display:flex;gap:14px;padding:13px 2px;border-bottom:1px solid var(--line);font:500 14px/1.55 var(--sans)}
+.c-item svg{width:17px;height:17px;flex:none;margin-top:3px}
+.c-item.r svg{color:var(--verm)}
+.c-item.k svg{color:var(--green)}
+.c-item b{font-weight:600}
+.c-item p{color:var(--ink60);font-size:13px;margin-top:2px}
+
+/* ============ CONTRIBUTE (from MedPath) ============ */
+.contrib{border:1px solid var(--ink);background:var(--paper)}
+.contrib-head{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--green);color:var(--paper);padding:10px 16px}
+.contrib-head b{font:600 11px/1 var(--sans);letter-spacing:.2em}
+.contrib-head span{font:italic 400 12px/1.3 var(--serif);opacity:.85}
+.contrib-in{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,4vw,48px);padding:clamp(22px,3vw,36px)}
+.contrib-in h3{font:500 22px/1.25 var(--serif)}
+.contrib-in p{font-size:14px;color:var(--ink60);margin-top:10px}
+.contrib-card{border:1px solid var(--line2);padding:24px;align-self:start}
+.contrib-card h4{font:500 17px/1.3 var(--serif)}
+.contrib-card p{font-size:13px;margin-top:8px}
+.contrib-btn{display:inline-block;margin-top:16px;background:var(--ink);color:var(--paper);font:600 11.5px/1 var(--sans);letter-spacing:.14em;padding:14px 20px;border-radius:2px;text-decoration:none;transition:.2s}
+.contrib-btn:hover{background:var(--green)}
+.contrib-note{font:italic 400 11.5px/1.6 var(--serif);color:var(--ink60);margin-top:14px}
+
+/* ============ FOOTER / TOAST / REVEAL ============ */
+footer{margin-top:clamp(64px,9vh,110px);border-top:1px solid var(--ink);padding:40px 0 48px}
+.foot-mark{font:480 clamp(2rem,5vw,3.6rem)/1.05 var(--serif);letter-spacing:-.02em;max-width:16ch}
+.foot-mark em{font-style:italic;color:var(--green)}
+.foot-row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px;margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}
+.foot-row p{font-size:12.5px;color:var(--ink60);line-height:1.7}
+.foot-note{font:600 10.5px/1 var(--sans);letter-spacing:.18em;color:var(--ink60);margin-bottom:10px;text-transform:uppercase}
+#toastBox{position:fixed;left:24px;bottom:24px;z-index:300;display:flex;flex-direction:column;gap:10px}
+.toast{background:var(--ink);color:var(--paper);padding:13px 18px;border-radius:3px;font:600 12.5px/1.4 var(--sans);box-shadow:0 12px 32px rgba(0,0,0,.35);animation:toastIn .35s cubic-bezier(.22,.8,.24,1) both;max-width:340px}
+.toast.out{animation:toastOut .3s forwards}
+@keyframes toastIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes toastOut{to{opacity:0;transform:translateY(10px)}}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,.8,.24,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1000px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-right{border-left:none;border-top:1px solid var(--line2);padding-left:0;padding-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+  .stat:nth-child(2){border-bottom:none}
+  .sec-head{grid-template-columns:1fr}
+  .ledger-head{display:none}
+  .row{grid-template-columns:44px minmax(0,1fr);grid-template-rows:auto auto;row-gap:16px}
+  .idx{font-size:20px}
+  .figs{grid-column:1/-1;grid-template-columns:repeat(2,1fr);gap:14px 12px}
+  .acts{grid-column:1/-1;justify-content:flex-start}
+  .mrow{grid-template-columns:96px minmax(0,1fr);row-gap:14px}
+  .mfigs{grid-column:1/-1;grid-template-columns:repeat(3,1fr)}
+  .mrow .acts{grid-column:1/-1;justify-content:flex-start}
+  .check-grid{grid-template-columns:1fr}
+  .contrib-in{grid-template-columns:1fr}
+  .foot-row{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  nav{display:none}
+  .cal-body,.enq-grid{grid-template-columns:1fr}
+  .score-field,.enq-score{border-right:none;border-bottom:1px solid var(--line)}
+  .tsel{border-right:none;border-bottom:1px solid var(--line);flex:1 1 45%}
+  .tsearch{flex-basis:100%;border-bottom:1px solid var(--line);border-right:none}
+  .tcount{flex-basis:100%;justify-content:flex-start;padding:8px 4px}
+  .enq-btn{margin-left:0;flex:1 1 100%;justify-content:center}
+  .cmp-table td.attr{width:110px}
+  .brand-name em{display:none}
+}
 </style>
 </head>
 <body>
 
-<header class="top">
-  <div class="wrap top-row">
-    <div>
-      <span class="brand-mark" id="brandHome">MedPath</span>
-      <span class="brand-tag">building toward 2027 — data collection in progress</span>
-    </div>
-    <div style="display:flex; gap:8px; align-items:center;">
-      <div class="nav-btns">
-        <button class="nav-btn active" data-view="search">Search</button>
-        <button class="nav-btn" data-view="guide">Counselling Guide</button>
-        <button class="nav-btn" data-view="contribute">Contribute Data</button>
+<!-- ================= HEADER ================= -->
+<header id="siteHead">
+  <div class="wrap head-in">
+    <a class="brand" href="#top" aria-label="The Admissions Atlas — home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1C4A38" stroke-width="1.8" stroke-linecap="square">
+        <circle cx="12" cy="12" r="10.5"/><polyline points="4.5,12 9,12 11,7 13.5,17 15,12 19.5,12"/>
+      </svg>
+      <span class="brand-name" id="brandName">THE ADMISSIONS ATLAS<em id="brandTag">Medical Colleges of India · 2025–26</em></span>
+    </a>
+    <nav>
+      <a href="#matcher">Match List</a>
+      <a href="#directory">Directory</a>
+      <a href="#process">The Process</a>
+      <a href="#checklist">Checklist</a>
+      <a href="#contribute">Contribute</a>
+    </nav>
+    <div class="head-right">
+      <button class="theme-btn" id="themeToggle" type="button" aria-label="Toggle dark mode">DARK</button>
+      <div class="score-chip">
+        <label for="scoreHead">NEET</label>
+        <input id="scoreHead" type="number" min="0" max="720" placeholder="—" aria-label="Your NEET score">
+        <span class="of">/720</span>
       </div>
-      <button class="theme-toggle" id="themeToggle" type="button">Dark</button>
     </div>
   </div>
 </header>
 
-<div class="wrap">
+<main id="top">
 
-<!-- ===== SEARCH VIEW ===== -->
-<section class="view active" id="view-search">
-  <div class="hero">
-    <h1>Search, compare, and check every MBBS/MD college in India.</h1>
-    <p class="sub">845 colleges tracked. Seats and government/private status are fully verified against the official NMC seat matrix. Fee, cutoff history, accreditation, and facilities are being verified college-by-college — click any college to see exactly what's confirmed and what isn't yet.</p>
-  </div>
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="kicker">AN INDEPENDENT ADMISSIONS DIRECTORY · SESSION 2025–26</p>
+        <h1>Before you wear the white coat, <em>read the fine print.</em></h1>
+        <p class="lede">Every rank, every rupee, every bond — with verification badges that say exactly what's confirmed and what's modelled. Enter your score and category, and the atlas lines up your probable colleges. Nothing here is guessed silently — every gap says so.</p>
 
-  <div class="controls">
-    <div class="controls-grid">
-      <div class="field"><label for="searchInput">Search by college name</label><input type="text" id="searchInput" placeholder="e.g. Kasturba, Government Medical College..."></div>
-      <div class="field"><label for="stateSelect">State / UT</label><select id="stateSelect"><option value="all">All states</option></select></div>
-      <div class="field"><label for="typeSelect">Type</label>
-        <select id="typeSelect"><option value="all">Government + Private</option><option value="Government">Government only</option><option value="Private">Private only</option></select>
+        <div class="calibrate">
+          <div class="cal-head"><b>CALIBRATE YOUR LIST</b><span>score + category, read the verdicts</span></div>
+          <div class="cal-cats">
+            <span class="lab">CATEGORY</span>
+            <div id="heroCats" class="cat-row" style="display:contents"></div>
+          </div>
+          <div class="cal-body">
+            <div class="score-field">
+              <label for="scoreHero">YOUR NEET UG SCORE</label>
+              <div class="score-row">
+                <input id="scoreHero" type="number" min="0" max="720" placeholder="— — —" aria-label="Your NEET UG score">
+                <span class="of">/ 720</span>
+              </div>
+              <input id="scoreRange" type="range" min="0" max="720" value="0" aria-label="NEET score slider">
+            </div>
+            <div class="cal-dist">
+              <div class="dist-line"><span class="dot g"></span><span class="lab">Comfortable</span><span class="lead"></span><b id="dComfort">–</b></div>
+              <div class="dist-line"><span class="dot b"></span><span class="lab">Borderline</span><span class="lead"></span><b id="dBorder">–</b></div>
+              <div class="dist-line"><span class="dot v"></span><span class="lab">Stretch</span><span class="lead"></span><b id="dStretch">–</b></div>
+              <p class="dist-note" id="distNote">Enter a score to see where you stand among the dossiers in §2.</p>
+            </div>
+          </div>
+        </div>
+
+        <a class="hero-cta" href="#matcher">FIND MY COLLEGES
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
+        </a>
       </div>
-      <div class="field"><label for="sortSelect">Sort by</label>
-        <select id="sortSelect"><option value="name">Name (A-Z)</option><option value="seats-desc">Seats (high to low)</option><option value="data-first">Most documented first</option></select>
+
+      <div class="hero-right" aria-label="Key national figures">
+        <div class="stat"><div class="num" data-target="20">0</div><div class="lbl">Dossiers in this build — scales to 845+ via data.json</div></div>
+        <div class="stat"><div class="num" data-target="118000">0</div><div class="lbl">MBBS seats admitted each year</div></div>
+        <div class="stat"><div class="num" data-target="36">0</div><div class="lbl">States &amp; UTs in the counselling map</div></div>
+        <div class="stat"><div class="num" data-target="5">0<sup>&nbsp;quota lists decoded</sup></div><div class="lbl">GEN · EWS · OBC · SC · ST</div></div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="notice"><strong>Where this stands:</strong> this app is being built ahead of full data collection — seats/type data is complete and official; cutoff, fee, accreditation, and facility data currently covers a small verified set (visible via each college's data badges) and is being expanded before public launch for 2027 admissions. Nothing here is guessed — gaps say so.</div>
+  <div class="marquee" aria-hidden="true"><div class="marquee-track" id="mqTrack"></div></div>
 
-  <div class="section-head"><h2>Colleges</h2><span class="count-tag" id="resultCount"></span></div>
-  <div id="collegeList"></div>
-  <div class="no-results" id="noResults" style="display:none;">No colleges match your search.</div>
-  <div class="pagination" id="pagination"></div>
-
-  <div id="compareSection" style="display:none;">
-    <div class="section-head"><h2>Comparing</h2></div>
-    <div class="compare-wrap"><table class="compare" id="compareTable"></table></div>
-  </div>
-</section>
-
-<!-- ===== PROFILE VIEW ===== -->
-<section class="view" id="view-profile">
-  <button class="back-btn" id="backToSearch">&larr; Back to search</button>
-  <div id="profileContent"></div>
-</section>
-
-<!-- ===== GUIDE VIEW ===== -->
-<section class="view" id="view-guide">
-  <div class="hero"><h1>How NEET counselling actually works</h1></div>
-  <div class="explainer">
-    <div class="steps-grid">
-      <div class="step"><div class="step-num">1</div><div class="step-title">Two separate tracks</div><div class="step-text"><strong>All-India Quota (AIQ)</strong> — 15% of government seats, plus deemed/central universities and AIIMS/JIPMER — via <strong>MCC</strong>. <strong>State quota</strong> — remaining 85% of government seats, plus most private seats — via each state's own authority.</div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-title">Registration &amp; documents</div><div class="step-text">Register with NEET roll number, category certificate, domicile proof (state quota), ID proof. Pay the registration/security fee — refundable for AIQ if unallotted.</div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-title">Choice filling</div><div class="step-text">List colleges in your real order of preference. Edit until the deadline. This is where verified seat/fee/cutoff data actually changes decisions.</div></div>
-      <div class="step"><div class="step-num">4</div><div class="step-title">Allotment rounds</div><div class="step-text">Round 1, Round 2, usually a Mop-Up and Stray Vacancy round. Each round: accept &amp; report, or hold and try again if the round allows it.</div></div>
-      <div class="step"><div class="step-num">5</div><div class="step-title">Reporting &amp; admission</div><div class="step-text">Report in person within the window with original documents. Missing the deadline typically forfeits the seat.</div></div>
+  <!-- ================= MATCHER (§1) ================= -->
+  <section id="matcher">
+    <div class="wrap sec-head reveal">
+      <h2><span class="sec-num">§1</span>The Match List</h2>
+      <p>Tell us your NEET score and your category — General, EWS, OBC-NCL, SC or ST. Every college's cutoff is adjusted to your quota, converted into a probability, and ranked. Each row states its <b>basis</b> — a verified closing or a modelled estimate.</p>
     </div>
-    <div class="notice" style="margin-top:14px;"><strong>Where to register:</strong> <a href="https://mcc.nic.in" target="_blank" rel="noopener">mcc.nic.in</a> for AIQ/deemed/central universities/AIIMS/JIPMER. For state quota, search "[your state] NEET UG counselling" for that state's official portal.</div>
-  </div>
-</section>
 
-<!-- ===== CONTRIBUTE VIEW ===== -->
-<section class="view" id="view-contribute">
-  <div class="hero"><h1>Help verify college data</h1><p class="sub">Most of what makes this app genuinely useful — hostel conditions, faculty accessibility, real patient exposure, honest fee figures — doesn't exist in any public database. It has to come from people who've actually been there.</p></div>
-  <div class="contribute-card">
-    <h3>Are you a current student, alumnus, or parent?</h3>
-    <p style="color:var(--ink-soft); font-size:0.88rem; margin-top:8px;">Submit verified data for your college — fee paid, hostel conditions, faculty experience, or corrections to existing data. Every submission is reviewed before it's marked verified.</p>
-    <a class="form-link" href="#" id="contributeFormLink" target="_blank" rel="noopener">Open the data submission form</a>
-    <p style="color:var(--ink-soft); font-size:0.76rem; margin-top:14px;">(Form link to be added once published — currently collecting via Google Form during the data-building phase.)</p>
-  </div>
-</section>
+    <div class="wrap reveal">
+      <div class="enquiry">
+        <div class="enq-head"><b>THE ENQUIRY DESK</b><span>your score, your quota, your odds</span></div>
+        <div class="enq-grid">
+          <div class="enq-score" id="enqScoreWrap">
+            <label for="scoreMatch">YOUR NEET UG SCORE</label>
+            <div class="score-row">
+              <input id="scoreMatch" type="number" min="0" max="720" placeholder="— — —" aria-label="Your NEET UG score">
+              <span class="of">/ 720</span>
+            </div>
+          </div>
+          <div class="enq-cats">
+            <span class="lab">YOUR ADMISSION CATEGORY</span>
+            <div id="enqCats" class="cat-row"></div>
+          </div>
+          <div class="enq-foot">
+            <div class="enq-ctl">
+              <label for="mFee">FEE CEILING</label>
+              <select id="mFee">
+                <option value="any">Any fee</option>
+                <option value="low">Under ₹1 L / yr</option>
+                <option value="mid">Under ₹5 L / yr</option>
+              </select>
+            </div>
+            <div class="enq-ctl">
+              <label for="mSort">SORT BY</label>
+              <select id="mSort">
+                <option value="chance">Chance — highest first</option>
+                <option value="fee">Fee — lowest first</option>
+                <option value="rank">NIRF rank</option>
+              </select>
+            </div>
+            <button class="enq-btn" id="matchGo">SHOW MY PROBABLE COLLEGES
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <p class="enq-fine">Category pools close on their own ranks — adjusted cutoffs are indicative, modelled on recent rounds, and always labelled with their basis. Your EWS / OBC-NCL / SC / ST certificate must be in the central format for MCC counselling and your state's format for state-quota seats. PwD carries a separate 5% horizontal quota.</p>
+    </div>
 
+    <div class="wrap" id="matchResults" aria-live="polite"></div>
+  </section>
+
+  <!-- ================= DIRECTORY (§2) ================= -->
+  <section id="directory">
+    <div class="wrap sec-head reveal">
+      <h2><span class="sec-num">§2</span>The Directory</h2>
+      <p>Every dossier carries verification badges on the MedPath standard — <b>Verified</b>, <b>Partial</b> (modelled or partially checked), <b>Flagged</b>, or <b>Not on file</b>. Nothing is presented as official unless it is. Click any college for its full dossier, including cutoff history, fee records and facilities.</p>
+    </div>
+
+    <div class="toolbar reveal">
+      <div class="wrap toolbar-in">
+        <div class="tsearch">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="search" type="text" placeholder="Search a college, city or state…" aria-label="Search colleges">
+        </div>
+        <div class="tsel"><label for="fType">TYPE</label>
+          <select id="fType"><option value="all">All types</option><option>Government</option><option>Private</option><option>Deemed</option></select>
+        </div>
+        <div class="tsel"><label for="fState">STATE</label><select id="fState"><option value="all">All states</option></select></div>
+        <div class="tsel"><label for="fFee">FEE</label>
+          <select id="fFee"><option value="any">Any fee</option><option value="low">Under ₹1 L</option><option value="mid">₹1–5 L</option><option value="high">Above ₹5 L</option></select>
+        </div>
+        <div class="tsel" style="border-right:none"><label for="fSort">SORT</label>
+          <select id="fSort">
+            <option value="rank">NIRF rank</option>
+            <option value="name">Name (A–Z)</option>
+            <option value="fee-asc">Fee — low to high</option>
+            <option value="fee-desc">Fee — high to low</option>
+            <option value="cut-desc">Cutoff — toughest first</option>
+            <option value="seats">Seat intake — most first</option>
+            <option value="docs">Most documented first</option>
+          </select>
+        </div>
+        <div class="tcount" id="count"></div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="ledger-head" aria-hidden="true">
+        <div></div><div class="col-lab">COLLEGE</div>
+        <div class="figs-labels">
+          <span class="col-lab">ANNUAL FEE</span><span class="col-lab">SEATS</span>
+          <span class="col-lab">CUTOFF (LATEST)</span><span class="col-lab">NIRF ’24</span>
+        </div>
+        <div></div>
+      </div>
+      <div id="rows"></div>
+      <div class="pager" id="pager"></div>
+      <div class="empty" id="emptyState" hidden>
+        No colleges match that combination — widen the filters.<br>
+        <button id="clearFilters">CLEAR ALL FILTERS</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROCESS (§3) ================= -->
+  <section id="process">
+    <div class="wrap sec-head reveal">
+      <h2><span class="sec-num">§3</span>The Road to a Seat</h2>
+      <p>One national test, two counselling tracks, four rounds of allotment. Here is the whole route, in the order it actually happens.</p>
+    </div>
+    <div class="wrap steps reveal" id="steps"></div>
+  </section>
+
+  <!-- ================= CHECKLIST (§4) ================= -->
+  <section id="checklist">
+    <div class="wrap sec-head reveal">
+      <h2><span class="sec-num">§4</span>The Paper &amp; The Perils</h2>
+      <p>Admissions are lost as often to missing documents and scam calls as to rank. Carry the first list; refuse the second.</p>
+    </div>
+    <div class="wrap check-grid reveal">
+      <div class="check-col">
+        <h3><span>CARRY — ORIGINALS PLUS TWO SETS OF PHOTOCOPIES</span>Nine documents that decide your day</h3>
+        <div id="docList"></div>
+      </div>
+      <div class="check-col">
+        <h3><span>REFUSE — WITHOUT EXCEPTION</span>Five red flags around every admission desk</h3>
+        <div id="flagList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTRIBUTE (§5 — from MedPath) ================= -->
+  <section id="contribute">
+    <div class="wrap sec-head reveal">
+      <h2><span class="sec-num">§5</span>Help Verify the Atlas</h2>
+      <p>The figures no database publishes — hostel reality, faculty access, true patient exposure — come from the people who've lived them.</p>
+    </div>
+    <div class="wrap reveal">
+      <div class="contrib">
+        <div class="contrib-head"><b>OPEN DATA, OPENLY BUILT</b><span>every submission is reviewed before it's marked verified</span></div>
+        <div class="contrib-in">
+          <div>
+            <h3>Are you a current student, alumnus, or parent?</h3>
+            <p>Most of what makes a dossier genuinely useful doesn't exist in any public record. It has to come from people who've actually been there. Submit what you know — every entry carries your data's source and appears with a badge until reviewed.</p>
+            <p style="margin-top:14px"><b style="font-size:13px">Most wanted right now —</b> fee actually paid at admission (with receipt year), closing ranks by category from your counselling round, hostel condition and monthly mess cost, patient load in the attached hospital, faculty-to-student ratio on the ground.</p>
+          </div>
+          <div class="contrib-card">
+            <h4>Submit verified data or a correction</h4>
+            <p>Takes about five minutes per college. Corrections to existing figures are just as valuable as new facts — flag anything that conflicts with what you saw.</p>
+            <a class="contrib-btn" id="contributeLink" href="#" target="_blank" rel="noopener">OPEN THE SUBMISSION FORM</a>
+            <p class="contrib-note" id="contribNote">Form link goes live with the public launch — data is currently being collected during the build phase.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="wrap">
+      <p class="foot-mark">The whole truth, <em>before the white coat.</em></p>
+      <div class="foot-row">
+        <div>
+          <p class="foot-note">Disclaimer</p>
+          <p>This atlas is free and independent — no college pays for placement or a better position here, and no agent operates behind it. It is a data and comparison tool, <b>not an application portal</b>: real admissions happen only through NEET counselling. Figures carry verification badges — seats and NIRF ranks are verified against official sources; cutoffs and fees marked <i>partial</i> are modelled or pending verification, and gaps are shown as gaps. Category cutoffs vary every year and differ between the All-India and state quotas. Always confirm with the NMC (nmc.org.in), MCC (mcc.nic.in) and your state counselling authority before taking any decision.</p>
+        </div>
+        <div>
+          <p class="foot-note">Where to verify</p>
+          <p>NMC college &amp; seat registry — nmc.org.in<br>MCC All-India / Deemed / INI counselling — mcc.nic.in<br>NTA NEET UG — neet.nta.nic.in<br>Your state directorate of medical education</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- ================= OVERLAYS ================= -->
+<div class="scrim" id="dossierScrim"></div>
+<aside class="dossier" id="dossier" role="dialog" aria-modal="true" aria-label="College dossier"></aside>
+
+<div class="scrim" id="cmpScrim"></div>
+<div class="cmp-modal" id="cmpModal" role="dialog" aria-modal="true" aria-label="Comparison">
+  <div class="cmp-panel">
+    <div class="cmp-head">
+      <div style="display:flex;align-items:baseline"><h3>Side by side</h3><span class="hint">green underline marks the stronger figure</span></div>
+      <button class="icon-btn" id="cmpClose" aria-label="Close comparison"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="cmp-scroll" id="cmpBody"></div>
+  </div>
 </div>
 
-<div class="compare-tray" id="compareTray">
-  <div class="wrap">
-    <span class="names" id="trayNames"></span>
-    <div style="display:flex; gap:10px;">
-      <button class="clear" id="trayClear" type="button">Clear</button>
-      <button class="view2" id="trayView" type="button">Compare selected</button>
-    </div>
-  </div>
+<div id="tray" class="tray" hidden>
+  <div class="tray-chips" id="trayChips"></div>
+  <button class="tray-clear" id="trayClear">CLEAR</button>
+  <button class="tray-btn" id="trayCompare">COMPARE</button>
 </div>
 
-<footer>
-  <div class="wrap">
-    MedPath is free and independent — no college pays for placement or a better position here. This is a data and comparison tool, not an application portal: real MBBS/MD applications go through NEET counselling (mcc.nic.in for AIQ, or your state's counselling authority for state quota).
-  </div>
-</footer>
+<div id="toastBox"></div>
 
 <script>
-let DB = { colleges: [], cutoffs: [], fees: [], accreditation: [], facilities: [] };
-const state = { selected: new Set(), page: 1 };
+/* =========================================================
+   CONFIG — brand, contribute form, external dataset.
+   dataUrl points at a MedPath-format data.json (schema below).
+========================================================= */
+const CONFIG = {
+  brandName:"THE ADMISSIONS ATLAS",
+  brandTag:"Medical Colleges of India · 2025–26",
+  dataUrl:"data.json",     // set to "" to disable external ingestion
+  contributeUrl:"#",       // your Google Form / submission page URL
+};
+document.title = "The Admissions Atlas — MBBS College Data, India";
+
+/* =========================================================
+   DATA — embedded seed dossiers (indicative figures).
+   `records` follows the MedPath schema: every fact carries
+   a source and a status: "verified" | "partial" | "flagged".
+========================================================= */
+const DATA = [
+ {id:1, short:"AIIMS Delhi", name:"All India Institute of Medical Sciences, New Delhi", city:"New Delhi", state:"Delhi", type:"Government", ini:true, est:1956, fee:1628, seats:132, nirf:1, cut:685,
+  affil:"Institute of National Importance (Act of Parliament)", accred:"NMC Recognised · INI status",
+  stipend:"₹26,000 / mo", hostel:"Mandatory on-campus · highly subsidised", couns:"MCC — 100% All-India (INI)", bond:"None",
+  note:"The benchmark seat. A general-category closing score here sits near 685/720 — plan your preparation around single-digit ambition or a very good year.",
+  records:{facilities:[
+    {field:"Patient load", value:"Among India's busiest — main hospital, trauma centre and specialty centres on one campus", source:"Public reporting; alumni accounts", status:"partial"},
+    {field:"Faculty : student ratio", value:"Comfortably above NMC minimums across departments", source:"Institute disclosures", status:"partial"},
+  ]}},
+ {id:2, short:"JIPMER", name:"Jawaharlal Institute of Postgraduate Medical Education & Research, Puducherry", city:"Puducherry", state:"Puducherry", type:"Government", ini:true, est:1956, fee:4920, seats:200, nirf:7, cut:682,
+  affil:"Institute of National Importance", accred:"NMC Recognised · INI status",
+  stipend:"₹24,000 / mo", hostel:"On-campus · nominal", couns:"MCC — 100% All-India (INI)", bond:"None",
+  note:"INI pedigree at INI fees, with a calmer campus rhythm than Delhi. One of the finest rupee-for-quality equations in the country."},
+ {id:3, short:"CMC Vellore", name:"Christian Medical College, Vellore", city:"Vellore", state:"Tamil Nadu", type:"Private", est:1900, fee:53540, seats:100, nirf:3, cut:628,
+  affil:"The Tamil Nadu Dr. M.G.R. Medical University", accred:"NMC Recognised · NAAC A+",
+  stipend:"₹13,000 / mo", hostel:"On-campus · nominal", couns:"MCC / TN minority & open pools", bond:"2-yr service commitment (hospital / mission network)",
+  note:"The subsidised fee is real — and so is the two-year service obligation after internship. Read the two as a single package, not a discount."},
+ {id:4, short:"AFMC Pune", name:"Armed Forces Medical College, Pune", city:"Pune", state:"Maharashtra", type:"Government", est:1948, fee:0, seats:150, nirf:18, cut:648,
+  affil:"Maharashtra University of Health Sciences, Nashik", accred:"NMC Recognised",
+  stipend:"₹80,000+ / mo (officer pay)", hostel:"Mandatory on-campus (cadet life)", couns:"MCC + AFMC service selection", bond:"7-yr SSC commission incl. internship · ₹35 L breach penalty",
+  note:"Tuition-free in exchange for a seven-year commission. Walk away early and the penalty runs to ₹35 lakh — join only if the uniform is the point."},
+ {id:5, short:"MAMC Delhi", name:"Maulana Azad Medical College, New Delhi", city:"New Delhi", state:"Delhi", type:"Government", est:1959, fee:2340, seats:250, nirf:8, cut:668,
+  affil:"Faculty of Medicine, University of Delhi", accred:"NMC Recognised",
+  stipend:"₹66,150 / mo", hostel:"On-campus (MAMC / G.B. Pant hostels) · nominal", couns:"85% Delhi University · 15% MCC AIQ", bond:"None",
+  note:"Enormous patient volume across LNJP, GB Pant and associated hospitals — and the highest intern stipend in the country, by some distance."},
+ {id:6, short:"KGMU", name:"King George's Medical University, Lucknow", city:"Lucknow", state:"Uttar Pradesh", type:"Government", est:1916, fee:58000, seats:250, nirf:9, cut:645,
+  affil:"KGMU (unitary university)", accred:"NMC Recognised · NAAC A",
+  stipend:"₹12,000 / mo", hostel:"On-campus · ₹12,000 / yr", couns:"85% UP (DGME) · 15% MCC AIQ", bond:"UP state service bond — verify the current DGME circular",
+  note:"A century-old campus with a catchment measured in crores. UP's bond rules shift between circulars — check the year's notification before you join."},
+ {id:7, short:"IMS-BHU", name:"Institute of Medical Sciences, Banaras Hindu University, Varanasi", city:"Varanasi", state:"Uttar Pradesh", type:"Government", est:1960, fee:5690, seats:100, nirf:6, cut:652,
+  affil:"Banaras Hindu University (central)", accred:"NMC Recognised · NAAC A++ (BHU)",
+  stipend:"₹13,000 / mo", hostel:"Residential campus · nominal", couns:"MCC — 100% (central university)", bond:"None",
+  note:"Fully residential university life at government-school fees, with the entire seat pool allotted through MCC — no domicile games to play."},
+ {id:8, short:"Grant (JJ)", name:"Grant Government Medical College & Sir J.J. Hospital, Mumbai", city:"Mumbai", state:"Maharashtra", type:"Government", est:1845, fee:103000, seats:250, nirf:null, cut:641,
+  affil:"Maharashtra University of Health Sciences, Nashik", accred:"NMC Recognised",
+  stipend:"₹16,000 / mo", hostel:"On-campus · ₹6,000 / yr", couns:"85% State CET Cell · 15% MCC AIQ", bond:"1-yr rural service · ₹10 L penalty (Maharashtra)",
+  note:"JJ Hospital's clinical volume is unmatched in Mumbai. Maharashtra's one-year rural-service bond applies to most state-quota takers."},
+ {id:9, short:"Seth GS (KEM)", name:"Seth Gordhandas Sunderdas Medical College & KEM Hospital, Mumbai", city:"Mumbai", state:"Maharashtra", type:"Government", est:1925, fee:103000, seats:180, nirf:null, cut:649,
+  affil:"Maharashtra University of Health Sciences, Nashik", accred:"NMC Recognised",
+  stipend:"₹16,000 / mo", hostel:"On-campus · ₹6,000 / yr", couns:"85% State CET Cell · 15% MCC AIQ", bond:"1-yr rural service · ₹10 L penalty (Maharashtra)",
+  note:"The KEM name carries weight in every postgraduate entrance in the country. Mumbai's cost of living is the hidden line item — hostels soften it.",
+  records:{facilities:[
+    {field:"Patient load", value:"Very high — KEM's municipal catchment is one of the densest in India", source:"Public reporting; alumni accounts", status:"partial"},
+  ]}},
+ {id:10, short:"Madras MC", name:"Madras Medical College, Chennai", city:"Chennai", state:"Tamil Nadu", type:"Government", est:1835, fee:42000, seats:250, nirf:null, cut:622,
+  affil:"The Tamil Nadu Dr. M.G.R. Medical University", accred:"NMC Recognised",
+  stipend:"₹13,500 / mo", hostel:"On-campus · ₹5,000 / yr", couns:"85% TN DME · 15% MCC AIQ", bond:"3-yr state service · ₹40 L penalty (Tamil Nadu)",
+  note:"Established 1835 — among the oldest medical schools in Asia. Tamil Nadu's service bond is one of the heavier ones; weigh it honestly."},
+ {id:11, short:"Osmania MC", name:"Osmania Medical College, Hyderabad", city:"Hyderabad", state:"Telangana", type:"Government", est:1846, fee:10000, seats:250, nirf:null, cut:618,
+  affil:"Kaloji Narayana Rao University of Health Sciences", accred:"NMC Recognised",
+  stipend:"₹14,500 / mo", hostel:"On-campus · nominal", couns:"85% KNRUHS (Telangana) · 15% MCC AIQ", bond:"State service bond applies (Telangana)",
+  note:"Very low fees and a heavy, unfiltered clinical load. The patient interface is largely Telugu-speaking — a real factor for out-of-state students."},
+ {id:12, short:"Calcutta MC", name:"Medical College & Hospital, Kolkata (Calcutta Medical College)", city:"Kolkata", state:"West Bengal", type:"Government", est:1835, fee:9000, seats:250, nirf:null, cut:612,
+  affil:"West Bengal University of Health Sciences", accred:"NMC Recognised",
+  stipend:"₹13,600 / mo", hostel:"On-campus · nominal", couns:"85% WB Swasthya Bhawan · 15% MCC AIQ", bond:"None",
+  note:"The college that started it all in Asia. Historic campus, modest fees, no compulsory bond — a quietly excellent state-college deal."},
+ {id:13, short:"GMCH-32", name:"Government Medical College & Hospital-32, Chandigarh", city:"Chandigarh", state:"Chandigarh", type:"Government", est:1991, fee:62000, seats:150, nirf:null, cut:636,
+  affil:"Panjab University", accred:"NMC Recognised",
+  stipend:"₹17,000 / mo", hostel:"On-campus · nominal", couns:"Chandigarh UT pool · 15% MCC AIQ", bond:"None",
+  note:"Small intake, strong PG-conversion record, and Chandigarh's quality of life. The UT-quota counselling route is worth reading closely."},
+ {id:14, short:"AIIMS Rishikesh", name:"All India Institute of Medical Sciences, Rishikesh", city:"Rishikesh", state:"Uttarakhand", type:"Government", ini:true, est:2012, fee:5856, seats:100, nirf:11, cut:663,
+  affil:"Institute of National Importance", accred:"NMC Recognised · INI status",
+  stipend:"₹24,000 / mo", hostel:"Mandatory on-campus · subsidised", couns:"MCC — 100% All-India (INI)", bond:"None",
+  note:"The new-generation AIIMS with the strongest clinical momentum. INI fee structure, INI counselling, and a campus still building its traditions."},
+ {id:15, short:"St. John's", name:"St. John's Medical College, Bengaluru", city:"Bengaluru", state:"Karnataka", type:"Private", est:1963, fee:666000, seats:150, nirf:16, cut:585,
+  affil:"Rajiv Gandhi University of Health Sciences", accred:"NMC Recognised · NAAC A",
+  stipend:"₹25,000 / mo", hostel:"On-campus · ₹40,000 / yr", couns:"Karnataka KEA (govt quota) + management pool", bond:"2-yr service obligation (mission hospital network)",
+  note:"Mission-hospital ethos and moderate fees by private standards. The service orientation is not decorative — it is written into the obligation."},
+ {id:16, short:"CMC Ludhiana", name:"Christian Medical College, Ludhiana", city:"Ludhiana", state:"Punjab", type:"Private", est:1894, fee:370000, seats:75, nirf:null, cut:560,
+  affil:"Baba Farid University of Health Sciences", accred:"NMC Recognised · NAAC A+",
+  stipend:"₹12,000 / mo", hostel:"On-campus · ₹30,000 / yr", couns:"Punjab BFUHS + minority sponsored pool", bond:"Service obligation applies to sponsored seats",
+  note:"One of Asia's oldest medical schools. The subsidised pool is minority-linked — verify eligibility before banking on it."},
+ {id:17, short:"KMC Manipal", name:"Kasturba Medical College, Manipal", city:"Manipal", state:"Karnataka", type:"Deemed", est:1953, fee:1780000, seats:250, nirf:15, cut:505,
+  affil:"Manipal Academy of Higher Education (deemed)", accred:"NMC Recognised · NAAC A++ (MAHE)",
+  stipend:"≈ ₹20,000 / mo", hostel:"Mandatory on-campus · ₹1.5 L / yr", couns:"MCC — 100% (Deemed)", bond:"None",
+  note:"A premium deemed university with genuinely world-class infrastructure. At ₹17.8 L a year plus hostel, price the whole five-and-a-half years, not just year one.",
+  records:{facilities:[
+    {field:"Campus & hostels", value:"Self-contained university town; hostels mandatory, well-run, ~₹1.5 L / yr", source:"Institute disclosures; student accounts", status:"partial"},
+  ]}},
+ {id:18, short:"SRI Chennai", name:"Sri Ramachandra Institute of Higher Education & Research, Chennai", city:"Chennai", state:"Tamil Nadu", type:"Deemed", est:1985, fee:2250000, seats:250, nirf:12, cut:490,
+  affil:"Sri Ramachandra Institute (deemed)", accred:"NMC Recognised · NAAC A++",
+  stipend:"≈ ₹20,000 / mo", hostel:"Mandatory on-campus · ₹2 L / yr", couns:"MCC — 100% (Deemed)", bond:"None",
+  note:"The highest fee in this atlas, against a large, high-throughput teaching hospital. NMC-compliant exposure is real — so is the ₹1-crore-plus outlay."},
+ {id:19, short:"Amrita Kochi", name:"Amrita School of Medicine, Kochi", city:"Kochi", state:"Kerala", type:"Deemed", est:2002, fee:1800000, seats:100, nirf:null, cut:510,
+  affil:"Amrita Vishwa Vidyapeetham (deemed)", accred:"NMC Recognised · NAAC A++",
+  stipend:"≈ ₹18,000 / mo", hostel:"Mandatory on-campus · ₹1.8 L / yr", couns:"MCC — 100% (Deemed)", bond:"None",
+  note:"A newer deemed campus with excellent facilities. Weigh the fee against the thinner alumni network compared to century-old state colleges."},
+ {id:20, short:"HIMSR Delhi", name:"Hamdard Institute of Medical Sciences & Research, New Delhi", city:"New Delhi", state:"Delhi", type:"Deemed", est:2012, fee:1350000, seats:150, nirf:null, cut:540,
+  affil:"Jamia Hamdard (deemed)", accred:"NMC Recognised · NAAC A (Jamia Hamdard)",
+  stipend:"≈ ₹17,000 / mo", hostel:"On-campus · ₹1.2 L / yr", couns:"MCC — 100% (Deemed)", bond:"None",
+  note:"A Delhi address at a meaningful discount to metro privates. Associated-hospital volume is adequate; check the latest NMC seat letter before the round."},
+];
+
+/* =========================================================
+   CATEGORIES — indicative offsets from the general closing.
+========================================================= */
+const CATS = {
+  GEN:{label:"General (UR)", short:"GEN", off:0,   sub:"open merit"},
+  EWS:{label:"EWS",          short:"EWS", off:7,   sub:"central certificate"},
+  OBC:{label:"OBC-NCL",      short:"OBC", off:24,  sub:"non-creamy layer"},
+  SC :{label:"SC",           short:"SC",  off:82,  sub:""},
+  ST :{label:"ST",           short:"ST",  off:108, sub:""},
+};
+const CAT_ORDER = ["GEN","EWS","OBC","SC","ST"];
+
+const STEPS = [
+ {t:"Qualify NEET UG", d:"A single national test by the NTA gates every MBBS seat in India. The qualifying bar is the 50th percentile (General) — historically near 160/720 — but qualifying only opens the counselling door; seats are allotted purely on rank. There is no age bar and no cap on attempts."},
+ {t:"Register where you are eligible", d:"Two separate tracks run in parallel. MCC handles the 15% All-India Quota of state colleges, plus 100% of deemed universities, central universities (like BHU) and INIs (AIIMS, JIPMER) — register at mcc.nic.in. Each state authority runs its own 85% quota, usually requiring domicile — search “[your state] NEET UG counselling” for that state's official portal."},
+ {t:"Fill and lock your choices", d:"The seat matrix is published before each round. Order colleges strictly by your preference — allotment is preference-first, not score-first. This is where verified fee and cutoff data actually changes decisions. Lock before the deadline; an unlocked list is auto-locked exactly as saved."},
+ {t:"Navigate the rounds", d:"Round 1 → Round 2 → usually a Mop-Up → Stray Vacancy. Free-exit and upgradation rules change between rounds — an upgrade means joining the new seat and resigning the old one through the proper channel, never by simply not showing up."},
+ {t:"Report, verify, join", d:"Report in person within the window with original documents; missing the deadline typically forfeits the seat. Pay only against an official receipt, clear the medical fitness check, and classes begin around August. Your NEET score is valid only for this admission year."},
+];
+const STEP_WARNINGS = [
+ "Qualifying percentile is not admission rank. Category and state-wise rank lists decide who actually gets a counselling window.",
+ "Registration windows are short and fees are non-refundable. The AIQ security deposit is refundable if you go unallotted — state rules differ. Register for both tracks in the same year; you choose later.",
+ "Never fill a college you would not actually join. Ignoring an allotment can forfeit your security deposit and bar the next round.",
+ "Non-joining or late resignation after Round 2 can forfeit the ₹2,00,000 security deposit and disqualify you from the mop-up round.",
+ "Fee is paid only into the college's official account against a printed receipt — never in cash, never to an individual, never to an 'agent'.",
+];
+
+const DOCS = [
+ ["NEET UG admit card & scorecard","Multiple printouts; the scorecard is the master document."],
+ ["Class X certificate","Serves as date-of-birth proof."],
+ ["Class XI–XII marksheets","Originals; some states demand a passing certificate too."],
+ ["Transfer & migration certificates","Issued by your previous school/board; request these early."],
+ ["Domicile / residence certificate","Decides your eligibility for the 85% state quota."],
+ ["Category / EWS / PwD certificate","Current validity format — central format for MCC, state format for state quota. EWS certificates are year-specific."],
+ ["Passport photographs","Six to eight, recent, matching the NEET application."],
+ ["Photo ID","Aadhaar or passport, the same ID used in the NEET form."],
+ ["Allotment letter & registration proof","Downloaded from MCC or the state portal after seat allotment."],
+];
+const FLAGS = [
+ ["Capitation is illegal.","Any fee above the notified schedule — especially demanded in cash — is a criminal offence. Report it to the counselling authority."],
+ ["No agent can 'reserve' a seat.","Every seat is allotted only through MCC or a state portal. There is no backdoor, and no donation seat exists in government colleges."],
+ ["Verify recognition before you pay.","Check the college's permitted and recognised seats on nmc.org.in. An unrecognised seat can end a career at the degree stage."],
+ ["Bonds are enforceable contracts.","Service bonds carry real penalties — some exceed ₹35 lakh. Read the bond clause before you click 'join', not after."],
+ ["If the offer seems off, it is.","'Direct admission' to AIIMS, guaranteed seats, instant allotment letters — all are frauds aimed at NEET families. Slow down, verify, report."],
+];
+
+/* ============ STATE ============ */
+const state = {
+  score:null, cat:"GEN",
+  q:"", type:"all", st:"all", fee:"any", sort:"rank",
+  mFee:"any", mSort:"chance", mBand:"all",
+  cmp:new Set(), dirPage:1,
+};
 const PAGE_SIZE = 25;
+const $ = id => document.getElementById(id);
+const feeDisp = c => c.fee!=null ? "₹"+c.fee.toLocaleString("en-IN") : (c.feeText || (c.ext ? "On application" : "No tuition"));
+const outlay = c => c.fee!=null ? "₹"+Math.round(c.fee*5.5).toLocaleString("en-IN") : "See year-wise fee records in the dossier";
+const feeBand = f => f==null ? "unk" : f<=100000 ? "low" : f<=500000 ? "mid" : "high";
 
-function getCollege(id) { return DB.colleges.find(c => c.id === id); }
-function cutoffsFor(id) { return DB.cutoffs.filter(x => x.college_id === id); }
-function feesFor(id) { return DB.fees.filter(x => x.college_id === id); }
-function accredFor(id) { return DB.accreditation.filter(x => x.college_id === id); }
-function facilitiesFor(id) { return DB.facilities.filter(x => x.college_id === id); }
-
-function dataScore(c) {
-  return cutoffsFor(c.id).length + feesFor(c.id).length + accredFor(c.id).length + facilitiesFor(c.id).length;
+/* ============ VERIFICATION LAYER (from MedPath) ============ */
+function statusBadge(status){
+  if(!status) return '<span class="vbadge none">Not on file</span>';
+  const s = String(status).toLowerCase();
+  if(s === "verified") return '<span class="vbadge ok">Verified</span>';
+  if(s.includes("partial") || s === "indicative") return '<span class="vbadge mid">Partial</span>';
+  if(s === "flagged" || s.includes("conflict")) return '<span class="vbadge bad">Flagged</span>';
+  return '<span class="vbadge none">'+status+'</span>';
 }
+const docCount = c => { const r=c.records||{}; return (r.cutoffs?.length||0)+(r.fees?.length||0)+(r.accred?.length||0)+(r.facilities?.length||0); };
+const verCount = c => { const r=c.records||{}; const n=a=>(a||[]).filter(i=>i.status==="verified").length; return n(r.cutoffs)+n(r.fees)+n(r.accred)+n(r.facilities); };
 
-function statusBadge(status) {
-  if (!status) return '<span class="badge badge-none">Not available</span>';
-  const s = status.toLowerCase();
-  if (s === 'verified') return '<span class="badge badge-ok">Verified</span>';
-  if (s.includes('partial')) return '<span class="badge badge-mid">Partially verified</span>';
-  if (s === 'flagged' || s.includes('conflict')) return '<span class="badge badge-bad">Flagged</span>';
-  return '<span class="badge badge-none">' + status + '</span>';
-}
-
-function tagClass(t) { if (t.startsWith('Government')) return 'tag-govt'; if (t === 'Private') return 'tag-priv'; return 'tag-ini'; }
-function tagLabel(t) { if (t === 'Government (INI)') return 'Govt · INI'; if (t.includes('Research')) return 'Govt · INI/Research'; return t; }
-
-// ---------------- View switching ----------------
-function showView(name) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById('view-' + name).classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === name));
-  window.scrollTo({top:0});
-}
-document.querySelectorAll('.nav-btn').forEach(b => b.addEventListener('click', () => showView(b.dataset.view)));
-document.getElementById('brandHome').addEventListener('click', () => showView('search'));
-
-// ---------------- Search / list ----------------
-function populateStates() {
-  const sel = document.getElementById('stateSelect');
-  const states = [...new Set(DB.colleges.map(c => c.s))].filter(s => s && s !== '—').sort();
-  states.forEach(s => { const opt = document.createElement('option'); opt.value = s; opt.textContent = s; sel.appendChild(opt); });
-}
-
-function getFiltered() {
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  const st = document.getElementById('stateSelect').value;
-  const ty = document.getElementById('typeSelect').value;
-  const sortBy = document.getElementById('sortSelect').value;
-
-  let list = DB.colleges.filter(c => {
-    if (q && !c.n.toLowerCase().includes(q)) return false;
-    if (st !== 'all' && c.s !== st) return false;
-    if (ty !== 'all') {
-      if (ty === 'Government' && !c.t.startsWith('Government')) return false;
-      if (ty === 'Private' && c.t !== 'Private') return false;
-    }
-    return true;
-  });
-
-  if (sortBy === 'name') list = list.sort((a,b) => a.n.localeCompare(b.n));
-  else if (sortBy === 'seats-desc') list = list.sort((a,b) => (b.seats||0) - (a.seats||0));
-  else if (sortBy === 'data-first') list = list.sort((a,b) => dataScore(b) - dataScore(a));
-
-  return list;
-}
-
-function renderList() {
-  const list = getFiltered();
-  const container = document.getElementById('collegeList');
-  const noResults = document.getElementById('noResults');
-  const countTag = document.getElementById('resultCount');
-  const pagination = document.getElementById('pagination');
-
-  if (list.length === 0) {
-    container.innerHTML = ''; noResults.style.display = 'block'; countTag.textContent = ''; pagination.innerHTML = ''; return;
+/* Rough marks→rank interpolation, for displaying indicative closings */
+const RANK_TAB=[[720,1],[710,15],[700,60],[690,160],[685,250],[680,400],[670,900],[660,1600],[650,2700],[640,4500],[630,7000],[620,10500],[610,15500],[600,21500],[590,30500],[580,41000],[560,65000],[540,98000],[520,135000],[505,170000],[480,260000],[440,500000]];
+function approxRank(m){
+  for(let i=0;i<RANK_TAB.length-1;i++){
+    const [m1,r1]=RANK_TAB[i],[m2,r2]=RANK_TAB[i+1];
+    if(m<=m1&&m>=m2) return Math.round(r1+(r2-r1)*(m1-m)/(m1-m2));
   }
-  noResults.style.display = 'none';
+  return m>720?1:600000;
+}
 
-  const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
-  if (state.page > totalPages) state.page = totalPages;
-  const startIdx = (state.page - 1) * PAGE_SIZE;
-  const pageItems = list.slice(startIdx, startIdx + PAGE_SIZE);
-  countTag.textContent = list.length.toLocaleString('en-IN') + ' colleges match';
-
-  container.innerHTML = pageItems.map(c => {
-    const isChecked = state.selected.has(c.id);
-    const score = dataScore(c);
-    return `
-      <div class="college-card" data-id="${c.id}">
-        <input type="checkbox" data-id="${c.id}" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation()" aria-label="Select ${c.n} to compare">
-        <div><div class="college-name">${c.n}</div><div class="college-loc">${c.s}</div></div>
-        <div class="cell-tags"><span class="tag ${tagClass(c.t)}">${tagLabel(c.t)}</span></div>
-        <div class="cell-facts"><div class="fact-label">Seats</div><div class="fact-value">${c.seats ? c.seats : '<span class="fact-value na">N/A</span>'}</div></div>
-        <div class="cell-facts"><div class="fact-label">Data on file</div><div class="fact-value">${score > 0 ? score + ' verified fact' + (score>1?'s':'') : '<span class="fact-value na">Not yet documented</span>'}</div></div>
-        <div class="cell-link arrow">&rsaquo;</div>
-      </div>
-    `;
-  }).join('');
-
-  container.querySelectorAll('.college-card').forEach(card => {
-    card.addEventListener('click', () => openProfile(parseInt(card.dataset.id)));
+/* Seed the record layer from the embedded editorial fields */
+function initRecords(){
+  DATA.forEach(c=>{
+    c.records = c.records || {};
+    c.records.cutoffs   = c.records.cutoffs   || [];
+    c.records.fees      = c.records.fees      || [];
+    c.records.accred    = c.records.accred    || [];
+    c.records.facilities= c.records.facilities|| [];
+    if(c.cut!=null && !c.records.cutoffs.some(r=>r.marks===c.cut))
+      c.records.cutoffs.push({year:2025, round:"indicative", quota:"AIQ / State", category:"GEN", rank:approxRank(c.cut), marks:c.cut,
+        source:"Modelled from recent counselling rounds — not an official figure", status:"partial"});
+    if(c.fee!=null && c.records.fees.length===0)
+      c.records.fees.push({year:2025, quota:"Latest on file", fee:c.fee, source:"College fee schedule — verify against the prospectus", status:"partial"});
+    if(c.nirf) c.records.accred.unshift({type:"NIRF (Medical)", rank:c.nirf, source:"National Institutional Ranking Framework", status:"verified"});
+    const naac=/NAAC\s*([A-C][+\+]?)?/.exec(c.accred||"");
+    if(naac) c.records.accred.push({type:"NAAC accreditation", grade:naac[1]||"—", source:"NAAC outcome as listed by the institute", status:"verified"});
   });
-  container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-    cb.addEventListener('change', (e) => {
-      const id = parseInt(e.target.dataset.id);
-      if (e.target.checked) state.selected.add(id); else state.selected.delete(id);
-      updateTray();
-    });
-  });
-
-  pagination.innerHTML = `<button id="prevPage" ${state.page<=1?'disabled':''}>&larr; Prev</button><span class="page-info">Page ${state.page} of ${totalPages}</span><button id="nextPage" ${state.page>=totalPages?'disabled':''}>Next &rarr;</button>`;
-  const prevBtn = document.getElementById('prevPage'), nextBtn = document.getElementById('nextPage');
-  if (prevBtn) prevBtn.addEventListener('click', () => { state.page--; renderList(); window.scrollTo({top:0,behavior:'smooth'}); });
-  if (nextBtn) nextBtn.addEventListener('click', () => { state.page++; renderList(); window.scrollTo({top:0,behavior:'smooth'}); });
 }
 
-function updateTray() {
-  const tray = document.getElementById('compareTray');
-  const names = document.getElementById('trayNames');
-  if (state.selected.size === 0) { tray.classList.remove('active'); document.getElementById('compareSection').style.display='none'; return; }
-  tray.classList.add('active');
-  const arr = [...state.selected].map(id => getCollege(id).n);
-  names.textContent = arr.length + ' selected' + (arr.length<=3 ? ': '+arr.join(', ') : '');
+/* The cutoff a college is judged on: prefer a verified general closing,
+   else the latest record with marks (typically the indicative model). */
+function basisFor(c){
+  const recs=(c.records&&c.records.cutoffs)||[];
+  const v=[...recs].reverse().find(r=>r.marks!=null && r.status==="verified" && /^(gen|ur|open|general)/i.test(r.category||""));
+  if(v) return {base:v.marks, tier:"verified", rec:v};
+  const ind=[...recs].reverse().find(r=>r.marks!=null);
+  if(ind) return {base:ind.marks, tier:ind.status==="verified"?"verified":"indicative", rec:ind};
+  return null;
 }
 
-function renderCompare() {
-  const selected = [...state.selected].map(getCollege);
-  if (selected.length === 0) return;
-  const table = document.getElementById('compareTable');
-  const rows = [
-    { label: 'State', get: c => c.s },
-    { label: 'Type', get: c => tagLabel(c.t) },
-    { label: 'MBBS seats', get: c => c.seats || 'Not available' },
-    { label: 'Fee (latest on file)', get: c => { const f = feesFor(c.id); return f.length ? f[f.length-1].fee : 'Not available'; } },
-    { label: 'NEET cutoff (latest on file)', get: c => { const cu = cutoffsFor(c.id); return cu.length ? (cu[cu.length-1].year+': '+cu[cu.length-1].rank) : 'Not available'; } },
-    { label: 'NIRF rank', get: c => { const a = accredFor(c.id); const nirf = a.find(x=>x.type.includes('NIRF')); return nirf ? '#'+nirf.rank : 'Not available'; } },
-  ];
-  let html = '<tr><th>College</th>' + selected.map(c => `<th>${c.n}</th>`).join('') + '</tr>';
-  rows.forEach(r => { html += `<tr><td class="metric-label">${r.label}</td>` + selected.map(c => `<td>${r.get(c)}</td>`).join('') + '</tr>'; });
-  table.innerHTML = html;
-  document.getElementById('compareSection').style.display = 'block';
-  document.getElementById('compareSection').scrollIntoView({behavior:'smooth', block:'start'});
+/* ============ MATCH ENGINE ============ */
+function effCutoff(c, cat){
+  const b = basisFor(c);
+  return b ? Math.max(0, b.base - CATS[cat].off) : null;
+}
+function probOf(c){
+  if(state.score == null) return null;
+  const b = basisFor(c); if(!b) return null;
+  const cut = Math.max(0, b.base - CATS[state.cat].off);
+  const gap = state.score - cut;
+  const p = Math.round(100 / (1 + Math.exp(-gap / 6)));
+  return {cut, gap, p, tier:b.tier};
+}
+function bandOf(p){
+  if(p >= 80) return {label:"Very likely", cls:"comfort", dot:"g"};
+  if(p >= 60) return {label:"Likely",      cls:"comfort", dot:"g"};
+  if(p >= 40) return {label:"Borderline",  cls:"border",  dot:"b"};
+  if(p >= 15) return {label:"Difficult",   cls:"stretch", dot:"v"};
+  return         {label:"Long shot",   cls:"stretch", dot:"v"};
+}
+function verdictOf(c){
+  const pr = probOf(c); if(!pr) return null;
+  if(pr.gap >= 8)  return {label:"Comfortable", cls:"comfort"};
+  if(pr.gap >= -8) return {label:"Borderline",  cls:"border"};
+  return {label:"Stretch", cls:"stretch"};
+}
+const matchAll = () => DATA.map(c => ({c, pr:probOf(c)})).filter(x => x.pr && x.pr.p >= 8);
+
+function toast(msg){
+  const t = document.createElement("div");
+  t.className = "toast"; t.textContent = msg;
+  $("toastBox").appendChild(t);
+  setTimeout(()=>{ t.classList.add("out"); setTimeout(()=>t.remove(), 320); }, 2800);
 }
 
-// ---------------- Profile view ----------------
-function openProfile(id) {
-  const c = getCollege(id);
-  const cutoffs = cutoffsFor(id);
-  const fees = feesFor(id);
-  const accred = accredFor(id);
-  const facilities = facilitiesFor(id);
+/* ============ MATCH LIST RENDER ============ */
+const BAND_CHIPS = [["all","ALL"],["likely","LIKELY · 60%+"],["mid","BORDERLINE"],["reach","REACH · UNDER 40%"]];
+const BAND_TESTS = {likely:p=>p>=60, mid:p=>p>=40&&p<60, reach:p=>p<40};
 
-  let html = `
-    <div class="profile-head">
-      <h1>${c.n}</h1>
-      <div class="profile-loc">${c.s !== '—' ? c.s : ''}</div>
-      <div class="profile-tags">
-        <span class="tag ${tagClass(c.t)}">${tagLabel(c.t)}</span>
-        ${c.seats ? `<span class="badge badge-ok">Seats: ${c.seats}</span>` : ''}
-      </div>
-    </div>
-
-    <div class="data-section">
-      <h3>NEET Cutoff History</h3>
-      ${cutoffs.length ? `
-        <table class="cutoff-table">
-          <tr><th>Year</th><th>Round</th><th>Quota</th><th>Category</th><th>Closing Rank</th><th>Status</th></tr>
-          ${cutoffs.map(cu => `<tr><td>${cu.year}</td><td>${cu.round||'—'}</td><td>${cu.quota}</td><td>${cu.category}</td><td>${cu.rank}</td><td>${statusBadge(cu.status)}</td></tr>`).join('')}
-        </table>
-      ` : `<div class="empty-state">No cutoff history documented yet for this college. This is one of ~800 colleges still being verified — check back as the dataset grows, or <a href="#" onclick="showView('contribute');return false;">submit data</a> if you have it.</div>`}
-    </div>
-
-    <div class="data-section">
-      <h3>Fees</h3>
-      ${fees.length ? fees.map(f => `
-        <div class="fact-row">
-          <div><div class="flabel">${f.year} · ${f.quota}</div><div class="fsource">${f.source}</div></div>
-          <div><div class="fval">${f.fee}</div>${statusBadge(f.status)}</div>
-        </div>
-      `).join('') : `<div class="empty-state">No fee data confirmed yet for this college.</div>`}
-    </div>
-
-    <div class="data-section">
-      <h3>Accreditation &amp; Rankings</h3>
-      ${accred.length ? accred.map(a => `
-        <div class="fact-row">
-          <div><div class="flabel">${a.type}</div><div class="fsource">${a.source}</div></div>
-          <div><div class="fval">Rank #${a.rank}</div>${statusBadge(a.status)}</div>
-        </div>
-      `).join('') : `<div class="empty-state">No accreditation/ranking data on file for this college.</div>`}
-    </div>
-
-    <div class="data-section">
-      <h3>Facilities — Faculty, Hostel, Patient Load</h3>
-      ${facilities.length ? facilities.map(f => `
-        <div class="fact-row">
-          <div><div class="flabel">${f.field}</div><div class="fsource">${f.source}</div></div>
-          <div><div class="fval">${f.value}</div>${statusBadge(f.status)}</div>
-        </div>
-      `).join('') : `<div class="empty-state">Not yet documented. Faculty counts, hostel conditions, and patient load aren't centrally published for almost any Indian medical college — this needs either an RTI request or a verified student/alumni submission. <a href="#" onclick="showView('contribute');return false;">Help fill this in</a>.</div>`}
-    </div>
-  `;
-  document.getElementById('profileContent').innerHTML = html;
-  showView('profile');
-}
-document.getElementById('backToSearch').addEventListener('click', () => showView('search'));
-
-// ---------------- Wire up ----------------
-document.getElementById('searchInput').addEventListener('input', () => { state.page=1; renderList(); });
-document.getElementById('stateSelect').addEventListener('change', () => { state.page=1; renderList(); });
-document.getElementById('typeSelect').addEventListener('change', () => { state.page=1; renderList(); });
-document.getElementById('sortSelect').addEventListener('change', () => { state.page=1; renderList(); });
-document.getElementById('trayView').addEventListener('click', renderCompare);
-document.getElementById('trayClear').addEventListener('click', () => { state.selected.clear(); renderList(); updateTray(); });
-
-const themeToggle = document.getElementById('themeToggle');
-themeToggle.addEventListener('click', () => {
-  const root = document.documentElement;
-  const current = root.getAttribute('data-theme');
-  if (current === 'dark') { root.setAttribute('data-theme','light'); themeToggle.textContent='Dark'; }
-  else { root.setAttribute('data-theme','dark'); themeToggle.textContent='Light'; }
-});
-
-async function loadData() {
-  const container = document.getElementById('collegeList');
-  container.innerHTML = '<div class="no-results">Loading college data...</div>';
-  try {
-    const res = await fetch('data.json');
-    if (!res.ok) throw new Error('Failed to load data.json: ' + res.status);
-    DB = await res.json();
-  } catch (err) {
-    container.innerHTML = '<div class="no-results">Could not load college data (data.json). Make sure data.json is uploaded in the same folder as this page. Error: ' + err.message + '</div>';
-    console.error(err);
+function renderMatch(){
+  const box = $("matchResults");
+  if(state.score == null){
+    box.innerHTML = `<div class="m-empty">
+      <p>Your list will appear here.</p>
+      <p class="sub">Enter your NEET score and pick a category at the enquiry desk above — every college with a cutoff on file will be ranked by your real chance.</p>
+    </div>`;
     return;
   }
-  populateStates();
-  renderList();
+  const all = matchAll();
+  const beyond = DATA.length - all.length;
+  const veryLikely = all.filter(x=>x.pr.p>=80).length;
+  const likely     = all.filter(x=>x.pr.p>=60&&x.pr.p<80).length;
+  const mid        = all.filter(x=>x.pr.p>=40&&x.pr.p<60).length;
+  const hard       = all.filter(x=>x.pr.p<40).length;
+
+  let list = all.slice();
+  if(state.mBand !== "all") list = list.filter(x => BAND_TESTS[state.mBand](x.pr.p));
+  if(state.mFee  !== "any") list = list.filter(x => feeBand(x.c.fee) === state.mFee);
+  list.sort({
+    chance:(a,b)=>b.pr.p-a.pr.p || (a.c.fee??1e12)-(b.c.fee??1e12),
+    fee:(a,b)=>(a.c.fee??1e12)-(b.c.fee??1e12) || b.pr.p-a.pr.p,
+    rank:(a,b)=>(a.c.nirf??999)-(b.c.nirf??999),
+  }[state.mSort]);
+
+  const chips = `<div class="chip-filters">${BAND_CHIPS.map(([k,lab])=>
+      `<button class="fchip" data-band="${k}" aria-pressed="${state.mBand===k}">${lab}</button>`).join("")}</div>`;
+
+  const summary = `<div class="match-summary">
+      <span class="who">${state.score}<span class="of">/720</span> · ${CATS[state.cat].label}</span>
+      <span class="ms-item"><span class="dot g"></span>Very likely <b>${veryLikely}</b></span>
+      <span class="ms-item"><span class="dot g"></span>Likely <b>${likely}</b></span>
+      <span class="ms-item"><span class="dot b"></span>Borderline <b>${mid}</b></span>
+      <span class="ms-item"><span class="dot v"></span>Reach <b>${hard}</b></span>
+      <span class="ms-item beyond">Beyond reach <b>${beyond}</b></span>
+    </div>`;
+
+  if(list.length === 0){
+    box.innerHTML = summary + chips + `
+      <div class="m-empty"><p>Nothing in that slice.</p>
+      <p class="sub">${all.length} college${all.length===1?"":"s"} ${all.length===1?"is":"are"} within reach before the filters — loosen the band or fee ceiling.</p></div>`;
+    return;
+  }
+
+  const rows = list.map((x,i)=>{
+    const b = bandOf(x.pr.p);
+    const g = x.pr.gap;
+    const gapTxt = g >= 0 ? `you clear it by <b>+${g}</b> marks` : `<b>${g}</b> marks short of the indicative line`;
+    const c = x.c;
+    return `<article class="mrow" data-id="${c.id}" style="animation-delay:${Math.min(i*26,280)}ms">
+      <div class="chance">
+        <div class="pct">${x.pr.p}<small>%</small></div>
+        <div class="meter"><i class="${b.cls}" style="width:${x.pr.p}%"></i></div>
+        <span class="chip ${b.cls}">${b.label}</span>
+      </div>
+      <div class="ident">
+        <h3>${c.name}</h3>
+        <p class="meta">${[c.city,c.state].filter(Boolean).join(", ")||"India"}${c.est?` · Est. ${c.est}`:""} · ${docCount(c)} fact${docCount(c)===1?"":"s"} on file</p>
+        <p class="gapline">${CATS[state.cat].label} cutoff ≈ <b>${x.pr.cut}</b>/720 · general ${basisFor(c)?.base ?? "—"} — ${gapTxt}<span class="basis">basis: ${x.pr.tier}</span></p>
+      </div>
+      <div class="mfigs">
+        <div class="fig"><span>Annual fee</span><b>${feeDisp(c)}</b></div>
+        <div class="fig"><span>Seats</span><b>${c.seats||"—"}</b></div>
+        <div class="fig"><span>NIRF ’24</span><b>${c.nirf ? "#"+c.nirf : "—"}</b></div>
+      </div>
+      <div class="acts">
+        <button class="icon-btn open-dos" data-id="${c.id}" aria-label="Open dossier for ${c.short||c.name}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></button>
+        <button class="icon-btn tog-cmp${state.cmp.has(c.id)?" active":""}" data-id="${c.id}" aria-label="Compare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M7 7l-4 7h8L7 7zm10 0-4 7h8l-4-7zM5 21h14"/></svg></button>
+      </div>
+    </article>`;
+  }).join("");
+
+  box.innerHTML = summary + chips + rows + `
+    <p class="m-foot">Probabilities are a compass, not a promise — each row states its basis: <b>verified</b> figures come from sourced records, <b>indicative</b> ones are modelled from recent rounds. Colleges without any cutoff on file aren't ranked here; find them in the Directory. Verify everything with MCC and your state authority before filling choices.</p>`;
 }
-loadData();
+
+/* ============ DIRECTORY RENDER (paginated — MedPath style) ============ */
+function filtered(){
+  const q = state.q.trim().toLowerCase();
+  return DATA
+    .filter(c => (state.type==="all" || c.type===state.type)
+              && (state.st==="all"   || c.state===state.st)
+              && (state.fee==="any"  || feeBand(c.fee)===state.fee)
+              && (!q || (c.name+" "+(c.city||"")+" "+(c.state||"")+" "+(c.short||"")).toLowerCase().includes(q)))
+    .sort({
+      rank:(a,b)=>(a.nirf??999)-(b.nirf??999)||a.name.localeCompare(b.name),
+      name:(a,b)=>a.name.localeCompare(b.name),
+      "fee-asc":(a,b)=>(a.fee??1e12)-(b.fee??1e12),
+      "fee-desc":(a,b)=>(b.fee??-1)-(a.fee??-1),
+      "cut-desc":(a,b)=>(basisFor(b)?.base??-1)-(basisFor(a)?.base??-1),
+      seats:(a,b)=>(b.seats||0)-(a.seats||0),
+      docs:(a,b)=>docCount(b)-docCount(a)||(a.nirf??999)-(b.nirf??999),
+    }[state.sort]);
+}
+
+function renderDirectory(){
+  const list = filtered();
+  const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+  if(state.dirPage > totalPages) state.dirPage = totalPages;
+  const start = (state.dirPage - 1) * PAGE_SIZE;
+  const slice = list.slice(start, start + PAGE_SIZE);
+
+  $("rows").innerHTML = slice.map((c,i)=>{
+    const v = verdictOf(c);
+    const chip = v ? `<span class="chip ${v.cls}">${v.label}</span>` : "";
+    const b = basisFor(c);
+    const cutFig = b
+      ? `<b>${b.base}</b><span class="small-of">/720 · ${b.tier==="verified"?"verified":"indicative"}</span>${statusBadge(b.rec?.status)}${chip}`
+      : `<b>—</b><span class="small-of">not on file</span>${statusBadge(null)}`;
+    return `
+    <article class="row" data-id="${c.id}" style="animation-delay:${Math.min(i*28,300)}ms">
+      <div class="idx">${String(start+i+1).padStart(2,"0")}</div>
+      <div class="ident">
+        <div class="tags"><span class="tag ${c.type||"Private"}">${(c.type||"—").toUpperCase()}</span>${c.ini?'<span class="tag ini">INI</span>':""}</div>
+        <h3>${c.name}</h3>
+        <p class="meta">${[c.city,c.state].filter(Boolean).join(", ")||"India"}${c.est?` · Est. ${c.est}`:""} · ${docCount(c)} fact${docCount(c)===1?"":"s"} on file (${verCount(c)} verified)</p>
+      </div>
+      <div class="figs">
+        <div class="fig"><span>Annual fee</span><b>${feeDisp(c)}</b></div>
+        <div class="fig"><span>Seats</span><b>${c.seats||"—"}</b></div>
+        <div class="fig"><span>Cutoff (latest)</span>${cutFig}</div>
+        <div class="fig"><span>NIRF ’24</span><b>${c.nirf ? "#"+c.nirf : "—"}</b></div>
+      </div>
+      <div class="acts">
+        <button class="icon-btn open-dos" data-id="${c.id}" aria-label="Open dossier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></button>
+        <button class="icon-btn tog-cmp${state.cmp.has(c.id)?" active":""}" data-id="${c.id}" aria-label="Compare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M7 7l-4 7h8L7 7zm10 0-4 7h8l-4-7zM5 21h14"/></svg></button>
+      </div>
+    </article>`;
+  }).join("");
+
+  $("pager").innerHTML = totalPages <= 1 ? "" : `
+    <button id="pgPrev" ${state.dirPage<=1?"disabled":""}>← PREV</button>
+    <span class="pginfo">Page ${state.dirPage} of ${totalPages} · ${list.length.toLocaleString("en-IN")} colleges</span>
+    <button id="pgNext" ${state.dirPage>=totalPages?"disabled":""}>NEXT →</button>`;
+  const pv=$("pgPrev"), nx=$("pgNext");
+  if(pv) pv.onclick=()=>{ state.dirPage--; renderDirectory(); window.scrollTo({top:$("rows").offsetTop-140,behavior:"smooth"}); };
+  if(nx) nx.onclick=()=>{ state.dirPage++; renderDirectory(); window.scrollTo({top:$("rows").offsetTop-140,behavior:"smooth"}); };
+
+  $("emptyState").hidden = list.length > 0;
+  const parts = [`Showing <b>${slice.length?}${list.length?`${start+1}–${start+slice.length} of ${list.length}`:"0"}</b> dossiers`];
+  if(state.score != null){
+    const n = k => list.filter(c => verdictOf(c)?.cls === k).length;
+    parts.push(`at ${state.score} (${CATS[state.cat].short}): <b>${n("comfort")}</b> comfortable · <b>${n("border")}</b> borderline · <b>${n("stretch")}</b> stretch`);
+  }
+  $("count").innerHTML = parts.join(" — ");
+  renderDist(list);
+}
+
+function renderDist(list = filtered()){
+  if(state.score == null){
+    ["dComfort","dBorder","dStretch"].forEach(id=>$(id).textContent="–");
+    $("distNote").textContent = "Enter a score to see where you stand among the dossiers in §2.";
+    return;
+  }
+  const n = k => list.filter(c => verdictOf(c)?.cls === k).length;
+  $("dComfort").textContent = n("comfort");
+  $("dBorder").textContent  = n("border");
+  $("dStretch").textContent = n("stretch");
+  $("distNote").textContent = `At ${state.score} as ${CATS[state.cat].label}, ${n("comfort")} of the ${list.length} shown colleges sit inside a comfortable window — and ${n("stretch")} remain a long reach.`;
+}
+
+/* ============ DOSSIER ============ */
+function openDossier(id){
+  const c = DATA.find(x=>x.id===id); if(!c) return;
+  const pr = probOf(c);
+  const b = pr ? bandOf(pr.p) : null;
+  const banner = pr ? `
+    <div class="verdict-banner" style="background:var(--${b.cls==="comfort"?"green-soft":b.cls==="border"?"brass-soft":"verm-soft"})">
+      <span class="dot ${b.dot}"></span>
+      <span>${b.label.toUpperCase()}<small>at ${state.score}/720 (${CATS[state.cat].label}) — category cutoff ≈ ${pr.cut} vs base ${basisFor(c)?.base}. ${pr.gap>=0 ? "+"+pr.gap+" above" : Math.abs(pr.gap)+" short"} the line · basis: ${pr.tier}.</small></span>
+    </div>` : "";
+
+  const dc=docCount(c), vc=verCount(c);
+  const verline = `<p class="verline">On file: <b>${dc} fact${dc===1?"":"s"}</b> — <b>${vc}</b> verified · every figure below carries its status badge.</p>`;
+
+  const cutRecs = c.records.cutoffs || [];
+  const histHtml = `<div class="ds-block"><h4>Cutoff history — what's on record</h4>${
+    cutRecs.length ? `<div class="hist-wrap"><table class="hist">
+      <thead><tr><th>Year</th><th>Round</th><th>Quota</th><th>Category</th><th>Closing</th><th>Status</th></tr></thead>
+      <tbody>${cutRecs.map(r=>`<tr>
+        <td>${r.year??"—"}</td><td>${r.round||"—"}</td><td>${r.quota||"—"}</td><td>${r.category||"—"}</td>
+        <td>${r.marks!=null ? r.marks+" / 720" : "rank "+(r.rank??"—")}${r.marks!=null&&r.rank?`<span class="src">≈ closing rank ${r.rank}</span>`:""}${r.source?`<span class="src">${r.source}</span>`:""}</td>
+        <td>${statusBadge(r.status)}</td></tr>`).join("")}</tbody></table></div>`
+    : `<div class="ds-empty">No closing ranks on record for this college yet. <a data-goto-contribute>Add what you know</a>.</div>`
+  }</div>`;
+
+  const feeRecs = c.records.fees || [];
+  const feesHtml = `<div class="ds-block"><h4>Fees — year by year</h4>${
+    feeRecs.length ? feeRecs.map(f=>`
+      <div class="spec"><dt>${f.year??"—"} · ${f.quota||"—"}${f.source?`<span style="display:block;font:400 10.5px/1.4 var(--sans);letter-spacing:0;text-transform:none;color:var(--ink60)">${f.source}</span>`:""}</dt>
+      <dd>${typeof f.fee==="number" ? "₹"+f.fee.toLocaleString("en-IN") : (f.fee||"—")} &nbsp;${statusBadge(f.status)}</dd></div>`).join("")
+    : `<div class="ds-empty">No fee records on file. <a data-goto-contribute>Help fill this in</a>.</div>`
+  }</div>`;
+
+  const accRecs = c.records.accred || [];
+  const accHtml = accRecs.length ? `<div class="ds-block"><h4>Accreditation &amp; rankings</h4>${
+    accRecs.map(a=>`<div class="spec"><dt>${a.type}${a.source?`<span style="display:block;font:400 10.5px/1.4 var(--sans);letter-spacing:0;text-transform:none;color:var(--ink60)">${a.source}</span>`:""}</dt>
+    <dd>${a.rank ? "#"+a.rank : (a.grade||"—")} &nbsp;${statusBadge(a.status)}</dd></div>`).join("")}</div>` : "";
+
+  const facRecs = c.records.facilities || [];
+  const facHtml = `<div class="ds-block"><h4>Facilities — faculty, hostel, patient load</h4>${
+    facRecs.length ? facRecs.map(f=>`<div class="spec"><dt>${f.field}${f.source?`<span style="display:block;font:400 10.5px/1.4 var(--sans);letter-spacing:0;text-transform:none;color:var(--ink60)">${f.source}</span>`:""}</dt>
+    <dd style="max-width:60%">${f.value||"—"} &nbsp;${statusBadge(f.status)}</dd></div>`).join("")
+    : `<div class="ds-empty">Not yet documented. Faculty counts, hostel conditions and patient load aren't centrally published for almost any Indian medical college — this needs an RTI or a verified student submission. <a data-goto-contribute>Help fill this in</a>.</div>`
+  }</div>`;
+
+  const bondHtml = c.bond === "None"
+    ? `<div class="spec"><dt>Bond</dt><dd style="color:var(--green)">None — clean exit</dd></div>`
+    : c.bond && c.bond !== "—"
+    ? `<div class="bond-block">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.3 3.9-8.5 14.2A2 2 0 0 0 3.5 21h17a2 2 0 0 0 1.7-2.9L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4m0 4h.01"/></svg>
+         <div><b>BOND OBLIGATION</b><p>${c.bond}. This is a legally enforceable contract — read the exact clause in the prospectus before accepting a seat.</p></div>
+       </div>` : "";
+
+  const inCmp = state.cmp.has(c.id);
+  const catCut = effCutoff(c, state.cat);
+  $("dossier").innerHTML = `
+    <div class="dossier-in">
+      <div class="dos-top">
+        <div class="tags"><span class="tag ${c.type||"Private"}">${(c.type||"—").toUpperCase()}</span>${c.ini?'<span class="tag ini">INI</span>':""}</div>
+        <button class="icon-btn" id="dosClose" aria-label="Close dossier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <h2>${c.name}</h2>
+      <p class="dos-meta">${[c.city,c.state].filter(Boolean).join(", ")||"India"}${c.est?` · Est. ${c.est}`:""}${c.affil?` · ${c.affil}`:""}</p>
+      ${verline}
+      ${banner}
+      ${c.note ? `<p class="dos-note">${c.note}</p>` : ""}
+      <dl>
+        <div class="spec"><dt>Annual fee</dt><dd>${feeDisp(c)}</dd></div>
+        <div class="spec"><dt>Course outlay (5.5 yrs)</dt><dd>${outlay(c)}</dd></div>
+        <div class="spec"><dt>MBBS seats</dt><dd>${c.seats||"—"}</dd></div>
+        <div class="spec"><dt>Cutoff — base</dt><dd>${basisFor(c)?basisFor(c).base+" / 720 · "+basisFor(c).tier : "Not on file"}</dd></div>
+        <div class="spec"><dt>Cutoff — ${CATS[state.cat].short}</dt><dd>${catCut!=null ? catCut+" / 720" : "Not on file"} <span style="font-weight:500;color:var(--ink60)">· indicative</span></dd></div>
+        ${c.stipend&&c.stipend!=="—" ? `<div class="spec"><dt>Intern stipend</dt><dd>${c.stipend}</dd></div>` : ""}
+        ${c.hostel&&c.hostel!=="—" ? `<div class="spec"><dt>Hostel</dt><dd>${c.hostel}</dd></div>` : ""}
+        ${c.couns&&c.couns!=="—" ? `<div class="spec"><dt>Counselling route</dt><dd>${c.couns}</dd></div>` : ""}
+      </dl>
+      ${bondHtml}
+      ${histHtml}
+      ${feesHtml}
+      ${accHtml}
+      ${facHtml}
+      <div class="dos-actions">
+        <button class="btn primary" id="dosCmp">${inCmp ? "Remove from comparison" : "Add to comparison"}</button>
+        <button class="btn ghost" id="dosCompareNow">Compare selected (${state.cmp.size})</button>
+      </div>
+      <p class="dos-fine">Verify current figures with the NMC registry and the counselling authority before you pay anything.</p>
+    </div>`;
+  $("dossier").classList.add("open");
+  $("dossierScrim").classList.add("on");
+  document.body.style.overflow = "hidden";
+  $("dossier").scrollTop = 0;
+  $("dosClose").onclick = closeDossier;
+  $("dosCmp").onclick = () => { toggleCmp(c.id); openDossier(id); };
+  $("dosCompareNow").onclick = openCompare;
+  $("dossier").querySelectorAll("[data-goto-contribute]").forEach(a=>a.onclick=()=>{ closeDossier(); location.hash="#contribute"; });
+}
+function closeDossier(){
+  $("dossier").classList.remove("open");
+  $("dossierScrim").classList.remove("on");
+  if(!$("cmpModal").classList.contains("open")) document.body.style.overflow = "";
+}
+ $("dossierScrim").addEventListener("click", closeDossier);
+
+/* ============ COMPARE ============ */
+function toggleCmp(id){
+  if(state.cmp.has(id)){ state.cmp.delete(id); }
+  else{
+    if(state.cmp.size >= 3){ toast("Comparison holds three colleges at most."); return; }
+    state.cmp.add(id);
+    toast((DATA.find(c=>c.id===id)?.short || "College") + " added to comparison.");
+  }
+  renderTray(); renderDirectory(); renderMatch();
+}
+function renderTray(){
+  const tray = $("tray");
+  if(state.cmp.size === 0){ tray.hidden = true; return; }
+  tray.hidden = false;
+  $("trayChips").innerHTML = [...state.cmp].map(id=>{
+    const c = DATA.find(x=>x.id===id); if(!c) return "";
+    return `<span class="tchip">${c.short||c.name.slice(0,22)}<button data-rm="${id}" aria-label="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg></button></span>`;
+  }).join("");
+  $("trayCompare").textContent = `COMPARE (${state.cmp.size})`;
+  $("trayChips").querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>toggleCmp(+b.dataset.rm));
+}
+ $("trayClear").onclick = ()=>{ state.cmp.clear(); renderTray(); renderDirectory(); renderMatch(); };
+ $("trayCompare").onclick = openCompare;
+
+function openCompare(){
+  if(state.cmp.size < 2){ toast("Pick at least two colleges to compare."); return; }
+  const list = [...state.cmp].map(id=>DATA.find(c=>c.id===id)).filter(Boolean);
+  const nonNullFee = list.filter(c=>c.fee!=null);
+  const bestVals = {
+    fee:  nonNullFee.length ? Math.min(...nonNullFee.map(c=>c.fee)) : null,
+    cut:  Math.max(0, ...list.map(c=>basisFor(c)?.base ?? 0)) || null,
+    nirf: Math.min(...list.filter(c=>c.nirf).map(c=>c.nirf), Infinity) === Infinity ? null : Math.min(...list.filter(c=>c.nirf).map(c=>c.nirf)),
+    seats:Math.max(0, ...list.map(c=>c.seats||0)) || null,
+  };
+  const rows = [
+    {label:"NIRF ’24", get:c=>c.nirf?"#"+c.nirf:"—", key:"nirf", num:c=>c.nirf},
+    {label:"Type", get:c=>(c.type||"—")+(c.ini?" · INI":"")},
+    {label:"Established", get:c=>c.est??"—"},
+    {label:"Location", get:c=>[c.city,c.state].filter(Boolean).join(", ")||"—"},
+    {label:"Annual fee", get:c=>feeDisp(c), key:"fee", num:c=>c.fee},
+    {label:"Course outlay (5.5 yr)", get:c=>outlay(c)},
+    {label:"MBBS seats", get:c=>c.seats||"—", key:"seats", num:c=>c.seats||null},
+    {label:"Cutoff — latest on file", get:c=>{const b=basisFor(c);return b?`${b.base} / 720 · ${b.tier} ${statusBadge(b.rec?.status)}`:"—";}, key:"cut", num:c=>basisFor(c)?.base??null},
+    {label:`Cutoff — ${CATS[state.cat].short}`, get:c=>{const v=effCutoff(c,state.cat);return v!=null?v+" / 720":"—";}},
+    {label:"Your verdict", get:c=>state.score!=null ? (verdictOf(c)?.label ?? "Not rankable") : "—"},
+    {label:"On file", get:c=>`${docCount(c)} facts · ${verCount(c)} verified`},
+    {label:"Intern stipend", get:c=>c.stipend&&c.stipend!=="—"?c.stipend:"—"},
+    {label:"Hostel", get:c=>c.hostel&&c.hostel!=="—"?c.hostel:"—"},
+    {label:"Bond", get:c=>c.bond&&c.bond!=="—"?c.bond:"—"},
+    {label:"Counselling", get:c=>c.couns&&c.couns!=="—"?c.couns:"—"},
+  ];
+  $("cmpBody").innerHTML = `
+    <table class="cmp-table">
+      <thead><tr><td class="attr"></td>${list.map(c=>`
+        <th><button class="icon-btn c-remove" data-rm="${c.id}" aria-label="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        <span class="c-name">${c.short||c.name.slice(0,26)}</span></th>`).join("")}</tr></thead>
+      <tbody>${rows.map(r=>`
+        <tr><td class="attr">${r.label}</td>${list.map(c=>{
+          const num = r.num ? r.num(c) : null;
+          const isBest = r.key && bestVals[r.key]!=null && num!=null && num===bestVals[r.key];
+          return `<td class="val${isBest?" best":""}">${r.get(c)}${isBest?'<span class="bmark">STRONGER</span>':""}</td>`;
+        }).join("")}</tr>`).join("")}
+      </tbody>
+    </table>`;
+  $("cmpBody").querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{
+    state.cmp.delete(+b.dataset.rm); renderTray(); renderDirectory(); renderMatch();
+    state.cmp.size >= 2 ? openCompare() : closeCompare();
+  });
+  $("cmpModal").classList.add("open");
+  $("cmpScrim").classList.add("on");
+  document.body.style.overflow = "hidden";
+}
+function closeCompare(){
+  $("cmpModal").classList.remove("open");
+  $("cmpScrim").classList.remove("on");
+  if(!$("dossier").classList.contains("open")) document.body.style.overflow = "";
+}
+ $("cmpClose").onclick = closeCompare;
+ $("cmpScrim").addEventListener("click", closeCompare);
+
+/* ============ ROW EVENTS ============ */
+function rowClickHandler(e){
+  const btn = e.target.closest("button");
+  if(btn){
+    e.stopPropagation();
+    btn.classList.contains("open-dos") ? openDossier(+btn.dataset.id) : toggleCmp(+btn.dataset.id);
+    return;
+  }
+  const row = e.target.closest(".row, .mrow");
+  if(row) openDossier(+row.dataset.id);
+}
+ $("rows").addEventListener("click", rowClickHandler);
+ $("matchResults").addEventListener("click", rowClickHandler);
+
+/* ============ SCORE + CATEGORY INPUTS ============ */
+function setScore(raw){
+  let v = parseInt(raw, 10);
+  if(isNaN(v)){ state.score = null; }
+  else{ v = Math.max(0, Math.min(720, v)); state.score = v; }
+  const shown = state.score == null ? "" : state.score;
+  $("scoreHero").value = shown;
+  $("scoreRange").value = state.score ?? 0;
+  if(document.activeElement !== $("scoreHead"))  $("scoreHead").value  = shown;
+  if(document.activeElement !== $("scoreMatch")) $("scoreMatch").value = shown;
+  renderDirectory(); renderMatch();
+}
+["scoreHero","scoreHead","scoreMatch"].forEach(id=>$(id).addEventListener("input", e=>setScore(e.target.value)));
+ $("scoreRange").addEventListener("input", e=>setScore(e.target.value));
+
+function buildStamps(){
+  const html = CAT_ORDER.map(k=>{
+    const K = CATS[k];
+    return `<button class="stamp" data-cat="${k}" aria-pressed="false">${K.short}${K.sub?`<span class="sub">${K.sub}</span>`:""}</button>`;
+  }).join("");
+  $("heroCats").innerHTML = html;
+  $("enqCats").innerHTML = html;
+}
+function paintCats(){
+  document.querySelectorAll(".stamp").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.cat===state.cat)));
+}
+function setCat(cat){
+  if(!CATS[cat]) return;
+  state.cat = cat;
+  paintCats();
+  renderDirectory(); renderMatch();
+}
+document.addEventListener("click", e=>{
+  const s = e.target.closest(".stamp");
+  if(s) setCat(s.dataset.cat);
+});
+
+/* ============ MATCH + DIRECTORY CONTROLS ============ */
+ $("mFee").addEventListener("change", e=>{ state.mFee = e.target.value; renderMatch(); });
+ $("mSort").addEventListener("change", e=>{ state.mSort = e.target.value; renderMatch(); });
+ $("matchGo").onclick = ()=>{
+  if(state.score == null){
+    toast("Enter your NEET score first — then every college gets a probability.");
+    const w = $("enqScoreWrap");
+    w.classList.remove("shake"); void w.offsetWidth; w.classList.add("shake");
+    $("scoreMatch").focus();
+    return;
+  }
+  $("matchResults").scrollIntoView({behavior:"smooth", block:"start"});
+  const n = matchAll().length;
+  toast(`${n} college${n===1?"":"s"} within reach at ${state.score} (${CATS[state.cat].label}) — ranked by chance.`);
+};
+ $("search").addEventListener("input", e=>{ state.q = e.target.value; state.dirPage=1; renderDirectory(); });
+ $("fType").addEventListener("change", e=>{ state.type = e.target.value; state.dirPage=1; renderDirectory(); });
+ $("fState").addEventListener("change", e=>{ state.st = e.target.value; state.dirPage=1; renderDirectory(); });
+ $("fFee").addEventListener("change",  e=>{ state.fee = e.target.value; state.dirPage=1; renderDirectory(); });
+ $("fSort").addEventListener("change", e=>{ state.sort = e.target.value; state.dirPage=1; renderDirectory(); });
+ $("clearFilters").onclick = ()=>{
+  state.q=""; state.type="all"; state.st="all"; state.fee="any"; state.dirPage=1;
+  $("search").value=""; $("fType").value="all"; $("fState").value="all"; $("fFee").value="any";
+  renderDirectory();
+};
+
+/* ============ PROCESS ACCORDION ============ */
+ $("steps").innerHTML = STEPS.map((s,i)=>`
+  <div class="step${i===0?" open":""}">
+    <button class="step-head" aria-expanded="${i===0}">
+      <span class="step-num">0${i+1}</span>
+      <h3>${s.t}</h3>
+      <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="step-body"><div><div class="step-inner">
+      <p>${s.d}</p>
+      <div class="watchout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.3 3.9-8.5 14.2A2 2 0 0 0 3.5 21h17a2 2 0 0 0 1.7-2.9L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4m0 4h.01"/></svg>
+        <span><b>Watch out — </b>${STEP_WARNINGS[i]}</span>
+      </div>
+    </div></div></div>
+  </div>`).join("");
+ $("steps").querySelectorAll(".step-head").forEach(h=>h.addEventListener("click", ()=>{
+  const step = h.parentElement, wasOpen = step.classList.contains("open");
+  $("steps").querySelectorAll(".step").forEach(s=>{ s.classList.remove("open"); s.querySelector(".step-head").setAttribute("aria-expanded","false"); });
+  if(!wasOpen){ step.classList.add("open"); h.setAttribute("aria-expanded","true"); }
+}));
+
+/* ============ CHECKLISTS ============ */
+const tickSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>';
+ $("docList").innerHTML  = DOCS.map(d=>`<div class="c-item k">${tickSvg}<span><b>${d[0]}</b><p>${d[1]}</p></span></div>`).join("");
+ $("flagList").innerHTML = FLAGS.map(f=>`<div class="c-item r">${tickSvg}<span><b>${f[0]}</b><p>${f[1]}</p></span></div>`).join("");
+
+/* ============ MARQUEE ============ */
+(function(){
+  const hist = [["1835","Calcutta Medical College"],["1835","Madras Medical College"],["1845","Grant Medical College"],
+    ["1846","Osmania Medical College"],["1848","AFMC Pune"],["1900","CMC Vellore"],["1916","King George's Medical University"],
+    ["1925","Seth G.S. Medical College"],["1956","AIIMS New Delhi"],["1956","JIPMER"],["1963","St. John's Medical College"],["2012","AIIMS Rishikesh"]];
+  const chunk = hist.map(h=>`<span class="mi">EST. ${h[0]} — ${h[1].toUpperCase()}</span><span class="mdot">·</span>`).join("");
+  $("mqTrack").innerHTML = `<div class="m-half">${chunk}</div><div class="m-half">${chunk}</div>`;
+})();
+
+/* ============ STAT COUNTERS ============ */
+function countUp(el, target, dur=1400){
+  const start = performance.now();
+  const fmt = n => Math.round(n).toLocaleString("en-IN");
+  (function frame(now){
+    const p = Math.min((now-start)/dur, 1), e = 1 - Math.pow(1-p, 3);
+    el.firstChild.textContent = fmt(target * e);
+    if(p < 1) requestAnimationFrame(frame);
+  })(start);
+}
+document.querySelectorAll(".stat .num").forEach(el=>countUp(el, +el.dataset.target));
+
+/* ============ THEME (from MedPath) ============ */
+function applyTheme(t){
+  document.documentElement.setAttribute("data-theme", t);
+  try{ localStorage.setItem("atlas-theme", t); }catch(e){}
+  $("themeToggle").textContent = t === "dark" ? "LIGHT" : "DARK";
+}
+ $("themeToggle").addEventListener("click", ()=>
+  applyTheme(document.documentElement.getAttribute("data-theme")==="dark" ? "light" : "dark"));
+
+/* ============ HEADER / REVEAL / KEYS ============ */
+addEventListener("scroll", ()=>$("siteHead").classList.toggle("scrolled", scrollY > 8), {passive:true});
+const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+addEventListener("keydown", e=>{
+  if(e.key !== "Escape") return;
+  if($("cmpModal").classList.contains("open")) closeCompare();
+  else if($("dossier").classList.contains("open")) closeDossier();
+});
+
+/* =========================================================
+   EXTERNAL DATA INGEST — reads your existing MedPath
+   data.json (unchanged) and merges it into the atlas.
+   Schema: { colleges:[{id,n,s,t,seats}],
+             cutoffs:[{college_id,year,round,quota,category,rank,status}],
+             fees:[{college_id,year,quota,fee,source,status}],
+             accreditation:[{college_id,type,rank,source,status}],
+             facilities:[{college_id,field,value,source,status}] }
+========================================================= */
+async function ingestExternal(){
+  if(!CONFIG.dataUrl) return;
+  let db;
+  try{
+    const res = await fetch(CONFIG.dataUrl, {cache:"no-store"});
+    if(!res.ok) return;
+    db = await res.json();
+  }catch(e){ return; } // no dataset beside the page — the embedded build runs as-is
+  if(!db || !Array.isArray(db.colleges) || !db.colleges.length) return;
+
+  const normType = t => /^government/i.test(t||"") ? "Government" : /deemed/i.test(t||"") ? "Deemed" : "Private";
+  let added = 0, enriched = 0;
+
+  db.colleges.forEach(c=>{
+    const recs = {
+      cutoffs:(db.cutoffs||[]).filter(x=>x.college_id===c.id).map(x=>({year:x.year,round:x.round||"—",quota:x.quota||"—",category:x.category||"—",rank:x.rank,marks:x.marks??null,source:x.source||"Imported dataset",status:x.status||"partial"})),
+      fees:(db.fees||[]).filter(x=>x.college_id===c.id).map(x=>({year:x.year,quota:x.quota||"—",fee:x.fee,source:x.source||"Imported dataset",status:x.status||"partial"})),
+      accred:(db.accreditation||[]).filter(x=>x.college_id===c.id).map(x=>({type:x.type,rank:x.rank,grade:x.grade||null,source:x.source||"Imported dataset",status:x.status||"partial"})),
+      facilities:(db.facilities||[]).filter(x=>x.college_id===c.id).map(x=>({field:x.field,value:x.value,source:x.source||"Imported dataset",status:x.status||"partial"})),
+    };
+    const exist = DATA.find(k => (k.name||"").toLowerCase() === (c.n||"").toLowerCase());
+    if(exist){
+      exist.records.cutoffs.push(...recs.cutoffs);
+      exist.records.fees.push(...recs.fees);
+      exist.records.accred.push(...recs.accred);
+      exist.records.facilities.push(...recs.facilities);
+      enriched++;
+    }else{
+      const lastFee = recs.fees[recs.fees.length-1];
+      const nirfRec = recs.accred.find(a=>/nirf/i.test(a.type||""));
+      DATA.push({
+        id:100000+c.id, ext:true, name:c.n, short:c.n.length>34?c.n.slice(0,34)+"…":c.n,
+        city:"", state:(c.s&&c.s!=="—")?c.s:"—",
+        type:normType(c.t), ini:/ini/i.test(c.t||""),
+        est:null, seats:c.seats||0, nirf:nirfRec?nirfRec.rank:null, cut:null,
+        fee:(typeof lastFee?.fee==="number")?lastFee.fee:null,
+        feeText:(typeof lastFee?.fee==="string")?lastFee.fee:null,
+        affil:"", accred:"", stipend:"—", hostel:"—", couns:"—", bond:"—", note:"",
+        records:recs,
+      });
+      added++;
+    }
+  });
+
+  const states=[...new Set(DATA.map(c=>c.state).filter(Boolean))].sort();
+  $("fState").innerHTML='<option value="all">All states</option>'+states.map(s=>`<option>${s}</option>`).join("");
+  renderDirectory(); renderMatch();
+  if(added||enriched) toast(`Dataset merged — ${added} college${added===1?"":"s"} added, ${enriched} enriched from data.json.`);
+}
+
+/* ============ INIT ============ */
+(function(){
+  // theme first (before first paint of overlays)
+  let t=null; try{ t=localStorage.getItem("atlas-theme"); }catch(e){}
+  if(t!=="dark" && t!=="light") t = (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+  applyTheme(t);
+
+  $("brandName").childNodes[0].textContent = CONFIG.brandName;
+  $("brandTag").textContent = CONFIG.brandTag;
+  $("contributeLink").href = CONFIG.contributeUrl;
+
+  initRecords();
+  buildStamps();
+  paintCats();
+  const states=[...new Set(DATA.map(c=>c.state).filter(Boolean))].sort();
+  $("fState").innerHTML='<option value="all">All states</option>'+states.map(s=>`<option>${s}</option>`).join("");
+  renderDirectory();
+  renderMatch();
+  renderTray();
+  ingestExternal(); // silent no-op if data.json absent
+})();
 </script>
 </body>
 </html>
